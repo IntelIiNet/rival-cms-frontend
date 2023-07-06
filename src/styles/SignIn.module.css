@@ -1,0 +1,72 @@
+.main {
+  background-color: #f7fafc;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.link {
+  color: #fffcfe;
+  font-size: 38px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+.appbar {
+  color: #fffcfe;
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.rival-cms-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forget-password {
+  color: var(--600, #3182ce);
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.email-address {
+  color: #2a4365;
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.dont-have-acc-btn {
+  color: #2a4365;
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* sign up */
+
+.rival-cms {
+  color: #fff;
+  font-size: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

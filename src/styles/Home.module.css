@@ -1,0 +1,66 @@
+.link {
+  color: #fffcfe;
+  font-size: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.main {
+  background-color: "#F7FAFC";
+}
+
+.rival-cms {
+  color: #f7fafc;
+  font-size: 100px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.rival-cms-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.rival-cms-text {
+  margin-right: 8px; /* Adjust the margin as needed */
+}
+
+.sub-text {
+  color: #fffcfe;
+  font-size: 40px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.box {
+  border-radius: 5px;
+  border: 3px solid #f7fafc;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.box-text {
+  color: #fff;
+  font-size: 30px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.no-card {
+  color: #fff;
+  font-size: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
