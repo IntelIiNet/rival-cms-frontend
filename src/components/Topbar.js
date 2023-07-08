@@ -23,7 +23,7 @@ import Image from "next/image";
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 
-function DrawerAppBar(props) {
+function Topbar(props) {
   const router = useRouter();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -133,7 +133,7 @@ function DrawerAppBar(props) {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => router.push("/sign-in")}
+              onClick={() => router.push("/auth/sign-in")}
               sx={{
                 border: "2px solid var(--100, #F7FAFC)",
                 textTransform: "none",
@@ -171,7 +171,7 @@ function DrawerAppBar(props) {
   );
 }
 
-DrawerAppBar.propTypes = {
+Topbar.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -179,4 +179,4 @@ DrawerAppBar.propTypes = {
   window: PropTypes.func,
 };
 
-export default DrawerAppBar;
+export default Topbar;

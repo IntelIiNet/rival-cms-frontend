@@ -67,26 +67,21 @@ export default function Home() {
             >
               <Box
                 sx={{
-                  mr: 2,
+                  mr: 5,
                 }}
               >
-                <Link href="/" passHref>
-                  <Button variant="link" className={styles.link}>
-                    Pricing
-                  </Button>
+                <Link href="/" className={styles.link}>
+                  Pricing
                 </Link>
               </Box>
-              <Box sx={{ mr: 2 }}>
-                <Link href="/" passHref>
-                  <Button variant="link" className={styles.link} disableRipple>
-                    About
-                  </Button>
+              <Box sx={{ mr: 5 }}>
+                <Link href="/" className={styles.link}>
+                  About
                 </Link>
               </Box>
               <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => router.push("/sign-in")}
+                className={styles.sign_in_btn}
+                onClick={() => router.push("/auth/sign-in")}
               >
                 Sign in
               </Button>

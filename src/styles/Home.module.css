@@ -9,6 +9,18 @@
   text-transform: capitalize;
 }
 
+.sign_in_btn {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 5px;
+  border: 2px solid #f7fafc;
+  text-transform: none;
+}
+
 .main {
   background-color: "#F7FAFC";
 }

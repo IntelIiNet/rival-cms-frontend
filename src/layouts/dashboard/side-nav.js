@@ -15,12 +15,6 @@ export const SideNav = (props) => {
       sx={{
         background: "#EDF2F7",
         height: "100%",
-        "& .simplebar-content": {
-          height: "100%",
-        },
-        "& .simplebar-scrollbar:before": {
-          background: "neutral.400",
-        },
       }}
     >
       <Box
@@ -32,18 +26,6 @@ export const SideNav = (props) => {
         }}
       >
         <Box sx={{ p: 3 }}>
-          <Box
-            component={NextLink}
-            href="/"
-            sx={{
-              display: "inline-flex",
-              height: 32,
-              width: 32,
-            }}
-          >
-            {/* <Logo /> */}
-          </Box>
-
           <Stack
             component="ul"
             spacing={0.5}
@@ -61,6 +43,7 @@ export const SideNav = (props) => {
                 fontWeight: 500,
                 fontStyle: "normal",
                 lineHeight: "normal",
+                mt: 6,
                 mb: 1,
               }}
             >

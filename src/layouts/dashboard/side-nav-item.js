@@ -30,6 +30,7 @@ export const SideNavItem = (props) => {
             pl: "16px",
             pr: "16px",
             py: "6px",
+            mt: 1,
             textAlign: "left",
             width: "100%",
             color: "#2C5282",

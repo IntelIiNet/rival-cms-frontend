@@ -350,21 +350,35 @@ export const proFeaturesItems = [
           fill="none"
         >
           <path
-            d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+            d="M18 8H19C20.0609 8 21.0783 8.42143 21.8284 9.17157C22.5786 9.92172 23 10.9391 23 12C23 13.0609 22.5786 14.0783 21.8284 14.8284C21.0783 15.5786 20.0609 16 19 16H18"
             stroke="#2C5282"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+            d="M2 8H18V17C18 18.0609 17.5786 19.0783 16.8284 19.8284C16.0783 20.5786 15.0609 21 14 21H6C4.93913 21 3.92172 20.5786 3.17157 19.8284C2.42143 19.0783 2 18.0609 2 17V8Z"
             stroke="#2C5282"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
-            d="M21 15L16 10L5 21"
+            d="M6 1V4"
+            stroke="#2C5282"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 1V4"
+            stroke="#2C5282"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M14 1V4"
             stroke="#2C5282"
             stroke-width="2"
             stroke-linecap="round"

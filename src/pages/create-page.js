@@ -1,7 +1,27 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
-const dashboard = () => {
+import {
+  Button,
+  Container,
+  SvgIcon,
+  Typography,
+  Box,
+  IconButton,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import styles from "@/styles/ViewSite.module.css";
+import { useRouter } from "next/router";
+
+export default function createPage() {
+  const router = useRouter();
   return (
     <Layout>
       <Head>
@@ -11,9 +31,220 @@ const dashboard = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>create page</h1>
+        <Container sx={{ mt: "59px" }}>
+          <TableContainer sx={{ maxHeight: 620 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <Typography className={styles.typo}>Page title</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography className={styles.typo}>Created</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography className={styles.typo}>Stats</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography className={styles.typo}>Author</Typography>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "end" }}>
+                    <Button
+                      onClick={() => router.push("/create-page-view")}
+                      variant="contained"
+                      className={styles.btnText}
+                      startIcon={
+                        <SvgIcon fontSize="small">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                              stroke="#FFFCFE"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M14 2V8H20"
+                              stroke="#FFFCFE"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M12 18V12"
+                              stroke="#FFFCFE"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M9 15H15"
+                              stroke="#FFFCFE"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </SvgIcon>
+                      }
+                    >
+                      Add New
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell sx={{ border: "none" }}></TableCell>
+                </TableRow>
+                <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_heading_typo}>
+                      Home_page
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_created_text}>
+                      Updated 3 weeks ago
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    <Button className={styles.create_page_btn}>
+                      published
+                    </Button>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    {/* aurthor wrapper */}
+                    <Box className={styles.stats_wrapper}>
+                      <Typography className={styles.card_created_text}>
+                        Joe Bloggs
+                      </Typography>
+                      <Box className={styles.create_page_aurthor_container}>
+                        <Typography>admin</Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "end", my: 2, border: "none" }}>
+                    <IconButton>
+                      <MoreHorizIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: "none" }}></TableCell>
+                </TableRow>
+                <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_heading_typo}>
+                      Home_page
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_created_text}>
+                      Updated 3 weeks ago
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    <Button className={styles.create_page_btn}>
+                      published
+                    </Button>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    {/* aurthor wrapper */}
+                    <Box className={styles.stats_wrapper}>
+                      <Typography className={styles.card_created_text}>
+                        Joe Bloggs
+                      </Typography>
+                      <Box className={styles.create_page_aurthor_container}>
+                        <Typography>admin</Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "end", my: 2, border: "none" }}>
+                    <IconButton>
+                      <MoreHorizIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: "none" }}></TableCell>
+                </TableRow>
+                <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_heading_typo}>
+                      Home_page
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_created_text}>
+                      Updated 3 weeks ago
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    <Button className={styles.create_page_btn}>
+                      published
+                    </Button>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    {/* aurthor wrapper */}
+                    <Box className={styles.stats_wrapper}>
+                      <Typography className={styles.card_created_text}>
+                        Joe Bloggs
+                      </Typography>
+                      <Box className={styles.create_page_aurthor_container}>
+                        <Typography>admin</Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "end", my: 2, border: "none" }}>
+                    <IconButton>
+                      <MoreHorizIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell sx={{ border: "none" }}></TableCell>
+                </TableRow>
+                <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_heading_typo}>
+                      Home_page
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                    <Typography className={styles.card_created_text}>
+                      Updated 3 weeks ago
+                    </Typography>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    <Button className={styles.create_page_btn}>
+                      published
+                    </Button>
+                  </TableCell>
+                  <TableCell sx={{ my: 2, border: "none" }}>
+                    {/* aurthor wrapper */}
+                    <Box className={styles.stats_wrapper}>
+                      <Typography className={styles.card_created_text}>
+                        Joe Bloggs
+                      </Typography>
+                      <Box className={styles.create_page_aurthor_container}>
+                        <Typography>admin</Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell sx={{ textAlign: "end", my: 2, border: "none" }}>
+                    <IconButton>
+                      <MoreHorizIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
       </main>
     </Layout>
   );
-};
-export default dashboard;
+}

@@ -33,7 +33,7 @@ const signIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    route.push("/dashboard");
+    route.push("/view-site");
   };
 
   return (
@@ -188,7 +188,7 @@ const signIn = () => {
                       borderRadius: "10px",
                       textTransform: "capitalize",
                     }}
-                    onClick={() => route.push("/sign-up")}
+                    onClick={() => route.push("/auth/sign-up")}
                   >
                     {" Don’t have & account?"}
                   </Button>
