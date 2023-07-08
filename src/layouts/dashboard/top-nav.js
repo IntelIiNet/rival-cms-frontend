@@ -11,6 +11,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import styles from "@/styles/Layout.module.css";
+
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 
@@ -107,16 +109,13 @@ export const TopNav = (props) => {
             <Button
               variant="contained"
               sx={{
-                width: "82px",
-                height: "32px",
-                backgroundColor: "#D53F8C",
-                borderRadius: "5px",
                 "&:hover": {
-                  backgroundColor: " #fe7112",
+                  boxShadow: 2,
                 },
               }}
+              className={styles.pro_paln_btn}
             >
-              Login
+              Pro plan
             </Button>
             <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
           </Stack>

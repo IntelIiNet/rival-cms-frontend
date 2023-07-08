@@ -1,6 +1,19 @@
 import React from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
+import {
+  Button,
+  Container,
+  Stack,
+  SvgIcon,
+  Typography,
+  Divider,
+  Box,
+  IconButton,
+} from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import styles from "@/styles/ViewSite.module.css";
+
 const dashboard = () => {
   return (
     <Layout>
@@ -11,7 +24,340 @@ const dashboard = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>View Site</h1>
+        <Container sx={{ mt: "59px" }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography className={styles.typo}>Title</Typography>
+            <Typography className={styles.typo}>Status</Typography>
+            <Typography className={styles.typo}>Stats</Typography>
+            <Button
+              variant="contained"
+              className={styles.btnText}
+              startIcon={
+                <SvgIcon fontSize="small">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M10 15.8333L15.8333 10L18.3333 12.5L12.5 18.3333L10 15.8333Z"
+                      stroke="#FFFCFE"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M15 10.8334L13.75 4.58335L1.66666 1.66669L4.58332 13.75L10.8333 15L15 10.8334Z"
+                      stroke="#FFFCFE"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1.66666 1.66669L7.98832 7.98835"
+                      stroke="#FFFCFE"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M9.16667 10.8333C10.0871 10.8333 10.8333 10.0871 10.8333 9.16667C10.8333 8.24619 10.0871 7.5 9.16667 7.5C8.24619 7.5 7.5 8.24619 7.5 9.16667C7.5 10.0871 8.24619 10.8333 9.16667 10.8333Z"
+                      stroke="#FFFCFE"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </SvgIcon>
+              }
+            >
+              Add New
+            </Button>
+          </Stack>
+          <Box sx={{ my: 2 }}>
+            <Divider sx={{ color: "#E2E8F0" }} />
+          </Box>
+
+          {/* card listing */}
+
+          <Box className={styles.card}>
+            <Box>
+              <Typography className={styles.card_heading_typo}>
+                Design: A Survival Guide for Beginners
+              </Typography>
+              <Typography className={styles.card_sub_heading_typo}>
+                Posted 3 days ago
+              </Typography>
+            </Box>
+            {/* status wrapper */}
+            <Box>
+              <Button className={styles.card_btn}>published</Button>
+            </Box>
+            {/* stats wrapper */}
+            <Box className={styles.stats_wrapper}>
+              <Typography className={styles.stats}>120</Typography>
+              <Typography className={styles.stats_views}>views</Typography>
+              <SvgIcon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 12L12 8L8 12"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 16V8"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </SvgIcon>
+            </Box>
+            <Box>
+              <IconButton>
+                <MoreHorizIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box className={styles.card}>
+            <Box>
+              <Typography className={styles.card_heading_typo}>
+                Design: A Survival Guide for Beginners
+              </Typography>
+              <Typography className={styles.card_sub_heading_typo}>
+                Posted 3 days ago
+              </Typography>
+            </Box>
+            {/* status wrapper */}
+            <Box>
+              <Button className={styles.card_btn}>published</Button>
+            </Box>
+            {/* stats wrapper */}
+            <Box className={styles.stats_wrapper}>
+              <Typography className={styles.stats}>120</Typography>
+              <Typography className={styles.stats_views}>views</Typography>
+              <SvgIcon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 12L12 8L8 12"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 16V8"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </SvgIcon>
+            </Box>
+            <Box>
+              <IconButton>
+                <MoreHorizIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box className={styles.card}>
+            <Box>
+              <Typography className={styles.card_heading_typo}>
+                Design: A Survival Guide for Beginners
+              </Typography>
+              <Typography className={styles.card_sub_heading_typo}>
+                Posted 3 days ago
+              </Typography>
+            </Box>
+            {/* status wrapper */}
+            <Box>
+              <Button className={styles.card_btn}>published</Button>
+            </Box>
+            {/* stats wrapper */}
+            <Box className={styles.stats_wrapper}>
+              <Typography className={styles.stats}>120</Typography>
+              <Typography className={styles.stats_views}>views</Typography>
+              <SvgIcon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 12L12 8L8 12"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 16V8"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </SvgIcon>
+            </Box>
+            <Box>
+              <IconButton>
+                <MoreHorizIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box className={styles.card}>
+            <Box>
+              <Typography className={styles.card_heading_typo}>
+                Design: A Survival Guide for Beginners
+              </Typography>
+              <Typography className={styles.card_sub_heading_typo}>
+                Posted 3 days ago
+              </Typography>
+            </Box>
+            {/* status wrapper */}
+            <Box>
+              <Button className={styles.card_btn}>published</Button>
+            </Box>
+            {/* stats wrapper */}
+            <Box className={styles.stats_wrapper}>
+              <Typography className={styles.stats}>120</Typography>
+              <Typography className={styles.stats_views}>views</Typography>
+              <SvgIcon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 12L12 8L8 12"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 16V8"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </SvgIcon>
+            </Box>
+            <Box>
+              <IconButton>
+                <MoreHorizIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box className={styles.card}>
+            <Box>
+              <Typography className={styles.card_heading_typo}>
+                Design: A Survival Guide for Beginners
+              </Typography>
+              <Typography className={styles.card_sub_heading_typo}>
+                Posted 3 days ago
+              </Typography>
+            </Box>
+            {/* status wrapper */}
+            <Box>
+              <Button className={styles.card_btn}>published</Button>
+            </Box>
+            {/* stats wrapper */}
+            <Box className={styles.stats_wrapper}>
+              <Typography className={styles.stats}>120</Typography>
+              <Typography className={styles.stats_views}>views</Typography>
+              <SvgIcon>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16 12L12 8L8 12"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 16V8"
+                    stroke="#9AE6B4"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </SvgIcon>
+            </Box>
+            <Box>
+              <IconButton>
+                <MoreHorizIcon />
+              </IconButton>
+            </Box>
+          </Box>
+        </Container>
       </main>
     </Layout>
   );

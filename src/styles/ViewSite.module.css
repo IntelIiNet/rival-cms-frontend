@@ -1,0 +1,90 @@
+.typo {
+  color: #2c5282;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.btnText {
+  color: #fffcfe;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 135px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #2a4365;
+}
+.card {
+  height: auto;
+  background: #f7fafc;
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.card_heading_typo {
+  color: #2a4365;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.card_sub_heading_typo {
+  color: #a0aec0;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 5px;
+}
+
+.card_btn {
+  width: 120px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  border: 2px solid #9ae6b4;
+  color: #9ae6b4;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.stats_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.stats {
+  color: #2a4365;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.stats_views {
+  color: var(--500, #a0aec0);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 10px;
+}

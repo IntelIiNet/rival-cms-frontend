@@ -1,0 +1,18 @@
+.pro_paln_btn {
+  width: 110px;
+  height: 32px;
+  flex-shrink: 0;
+  color: #fffcfe;
+  font-family: Roboto;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border-radius: 5px;
+  background: #d53f8c;
+  text-transform: none;
+}
+
+.pro_paln_btn:hover {
+  background-color: #d53f8c;
+}
