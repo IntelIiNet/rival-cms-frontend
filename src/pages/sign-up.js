@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import { Roboto } from "next/font/google";
 import styles from "@/styles/SignIn.module.css";
 import {
   Box,
@@ -16,13 +15,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import Image from "next/image";
-import Logo from "../../public/assets/logo.png";
 import Topbar from "../components/Topbar";
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
 
 const signIn = () => {
   const handleSubmit = () => {
@@ -37,13 +30,13 @@ const signIn = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Topbar />
-      <main className={`${roboto.className} ${styles.main}`}>
+      <main className={`${styles.main}`}>
         <div className={styles["rival-cms-container"]}>
           <Typography
             variant="body1"
             component="span"
             gutterBottom
-            className={`${roboto.className} ${styles["link"]}`}
+            className={`${styles["link"]}`}
             style={{ color: "#2A4365" }}
           >
             Rival
@@ -52,7 +45,7 @@ const signIn = () => {
             variant="body1"
             component="span"
             gutterBottom
-            className={`${roboto.className} ${styles["link"]}`}
+            className={`${styles["link"]}`}
             style={{ color: "#63B3ED" }}
           >
             CMS
@@ -89,9 +82,7 @@ const signIn = () => {
                           <Person2OutlinedIcon color="#2A4365" />
                         </SvgIcon>
                         <Box>
-                          <Typography
-                            className={`${roboto.className} ${styles["email-address"]}`}
-                          >
+                          <Typography className={`${styles["email-address"]}`}>
                             Full Name
                           </Typography>
                         </Box>
@@ -123,9 +114,7 @@ const signIn = () => {
                           <EmailOutlinedIcon color="#2A4365" />
                         </SvgIcon>
                         <Box>
-                          <Typography
-                            className={`${roboto.className} ${styles["email-address"]}`}
-                          >
+                          <Typography className={`${styles["email-address"]}`}>
                             Email Address
                           </Typography>
                         </Box>
@@ -157,9 +146,7 @@ const signIn = () => {
                           <LockOutlinedIcon color="#2A4365" />
                         </SvgIcon>
                         <Box>
-                          <Typography
-                            className={`${roboto.className} ${styles["email-address"]}`}
-                          >
+                          <Typography className={`${styles["email-address"]}`}>
                             Password
                           </Typography>
                         </Box>

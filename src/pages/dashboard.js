@@ -1,10 +1,10 @@
 import React from "react";
-
+import { Layout } from "../layouts/dashboard/layout";
 const dashboard = () => {
   return (
-    <div>
+    <Layout>
       <h1>dashboard</h1>
-    </div>
+    </Layout>
   );
 };
 export default dashboard;

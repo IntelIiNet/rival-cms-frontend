@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import { Roboto } from "next/font/google";
 import {
   Box,
   Button,
@@ -15,10 +14,6 @@ import Image from "next/image";
 import Logo from "../../public/assets/logo.png";
 import MainImage from "../../public/assets/Group 4.png";
 import { useRouter } from "next/navigation";
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
 
 export default function Home() {
   const router = useRouter();
@@ -31,7 +26,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`${roboto.className} ${styles.main}`}
+        className={`${styles.main}`}
         style={{
           backgroundImage: `url('/assets/Rectangle.png')`,
           backgroundSize: "auto",
@@ -106,7 +101,7 @@ export default function Home() {
                   variant="h2"
                   component="span"
                   gutterBottom
-                  className={`${roboto.className} ${styles["rival-cms"]} ${styles["rival-cms-text"]}`}
+                  className={`${styles["rival-cms"]} ${styles["rival-cms-text"]}`}
                 >
                   Rival
                 </Typography>
@@ -114,7 +109,7 @@ export default function Home() {
                   variant="h2"
                   component="span"
                   gutterBottom
-                  className={`${roboto.className} ${styles["rival-cms"]} ${styles["rival-cms-text"]}`}
+                  className={`${styles["rival-cms"]} ${styles["rival-cms-text"]}`}
                   style={{ color: "#2D3748" }}
                 >
                   CMS
@@ -124,7 +119,7 @@ export default function Home() {
                 variant="h5"
                 component="h2"
                 gutterBottom
-                className={`${roboto.className} ${styles["sub-text"]}`}
+                className={`${styles["sub-text"]}`}
               >
                 Fresh new way to build sites
               </Typography>
@@ -133,15 +128,12 @@ export default function Home() {
                   variant="h5"
                   component="h2"
                   gutterBottom
-                  className={`${roboto.className} ${styles["box-text"]}`}
+                  className={`${styles["box-text"]}`}
                 >
                   Get started free
                 </Typography>
               </Box>
-              <Typography
-                variant="body1"
-                className={`${roboto.className} ${styles["no-card"]}`}
-              >
+              <Typography variant="body1" className={`${styles["no-card"]}`}>
                 *no card needed
               </Typography>
             </Stack>
@@ -163,40 +155,22 @@ export default function Home() {
                   alignItems: "center",
                 }}
               >
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Register
                 </Typography>
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Terms & conditions
                 </Typography>
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Privacy policy
                 </Typography>
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Documentation
                 </Typography>
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Pricing
                 </Typography>
-                <Typography
-                  variant="body1"
-                  className={`${roboto.className} ${styles["link"]}`}
-                >
+                <Typography variant="body1" className={`${styles["link"]}`}>
                   Our blog
                 </Typography>
                 <div className={styles["rival-cms-container"]}>
@@ -213,7 +187,7 @@ export default function Home() {
                     variant="body1"
                     component="span"
                     gutterBottom
-                    className={`${roboto.className} ${styles["link"]}`}
+                    className={`${styles["link"]}`}
                   >
                     Rival
                   </Typography>
@@ -221,7 +195,7 @@ export default function Home() {
                     variant="body1"
                     component="span"
                     gutterBottom
-                    className={`${roboto.className} ${styles["link"]}`}
+                    className={`${styles["link"]}`}
                     style={{ color: "#63B3ED" }}
                   >
                     CMS

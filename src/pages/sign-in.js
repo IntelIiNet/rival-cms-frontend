@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import Head from "next/head";
-import { Roboto } from "next/font/google";
 import styles from "@/styles/SignIn.module.css";
 import {
   Box,
@@ -9,11 +8,7 @@ import {
   Card,
   CardContent,
   Container,
-  FormControl,
-  FormHelperText,
   Grid,
-  InputLabel,
-  Link,
   SvgIcon,
   TextField,
   Typography,
@@ -22,10 +17,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { useRouter } from "next/router";
 
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
 const signIn = () => {
   const route = useRouter();
   const [userDetails, setUserDetails] = useState({});
@@ -53,13 +44,13 @@ const signIn = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${roboto.className} ${styles.main}`}>
+      <main className={`${styles.main}`}>
         <div className={styles["rival-cms-container"]}>
           <Typography
             variant="body1"
             component="span"
             gutterBottom
-            className={`${roboto.className} ${styles["link"]}`}
+            className={`${styles["link"]}`}
             style={{ color: "#2A4365" }}
           >
             Rival
@@ -68,7 +59,7 @@ const signIn = () => {
             variant="body1"
             component="span"
             gutterBottom
-            className={`${roboto.className} ${styles["link"]}`}
+            className={`${styles["link"]}`}
             style={{ color: "#63B3ED" }}
           >
             CMS
@@ -105,9 +96,7 @@ const signIn = () => {
                           <EmailOutlinedIcon color="#2A4365" />
                         </SvgIcon>
                         <Box>
-                          <Typography
-                            className={`${roboto.className} ${styles["email-address"]}`}
-                          >
+                          <Typography className={`${styles["email-address"]}`}>
                             Email Address
                           </Typography>
                         </Box>
@@ -140,9 +129,7 @@ const signIn = () => {
                           <LockOutlinedIcon color="#2A4365" />
                         </SvgIcon>
                         <Box>
-                          <Typography
-                            className={`${roboto.className} ${styles["email-address"]}`}
-                          >
+                          <Typography className={`${styles["email-address"]}`}>
                             Password
                           </Typography>
                         </Box>
@@ -173,9 +160,7 @@ const signIn = () => {
                         my: 3,
                       }}
                     >
-                      <Typography
-                        className={`${roboto.className} ${styles["forget-password"]}`}
-                      >
+                      <Typography className={`${styles["forget-password"]}`}>
                         Forget Password ?
                       </Typography>
                     </Grid>
@@ -197,7 +182,7 @@ const signIn = () => {
                   <Button
                     fullWidth
                     variant="outlined"
-                    className={`${roboto.className} ${styles["dont-have-acc-btn"]}`}
+                    className={`${styles["dont-have-acc-btn"]}`}
                     sx={{
                       height: "61px",
                       borderRadius: "10px",

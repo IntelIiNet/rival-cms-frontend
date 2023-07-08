@@ -15,14 +15,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import styles from "@/styles/SignIn.module.css";
-import { Roboto } from "next/font/google";
+
 import { useRouter } from "next/router";
 import Logo from "../../public/assets/logo.png";
 import Image from "next/image";
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-});
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
@@ -43,7 +39,7 @@ function DrawerAppBar(props) {
           variant="body1"
           component="span"
           gutterBottom
-          className={`${roboto.className} ${styles["appbar"]}`}
+          className={` ${styles["appbar"]}`}
           style={{ color: "#2A4365", my: 2 }}
         >
           Rival
@@ -52,7 +48,7 @@ function DrawerAppBar(props) {
           variant="body1"
           component="span"
           gutterBottom
-          className={`${roboto.className} ${styles["appbar"]}`}
+          className={` ${styles["appbar"]}`}
           style={{ color: "#63B3ED", my: 2 }}
         >
           CMS
@@ -117,7 +113,7 @@ function DrawerAppBar(props) {
                   variant="body1"
                   component="span"
                   gutterBottom
-                  className={`${roboto.className} ${styles["appbar"]}`}
+                  className={` ${styles["appbar"]}`}
                 >
                   Rival
                 </Typography>
@@ -125,7 +121,7 @@ function DrawerAppBar(props) {
                   variant="body1"
                   component="span"
                   gutterBottom
-                  className={`${roboto.className} ${styles["appbar"]}`}
+                  className={` ${styles["appbar"]}`}
                   style={{ color: "#63B3ED" }}
                 >
                   CMS
