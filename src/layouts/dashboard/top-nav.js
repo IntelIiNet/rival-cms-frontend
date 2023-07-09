@@ -105,7 +105,14 @@ export const TopNav = (props) => {
               </Box>
             </Box>
           </Stack>
-          <Stack alignItems="center" direction="row" spacing={2}>
+          <Stack
+            alignItems="center"
+            direction="row"
+            spacing={2}
+            sx={{
+              display: { xs: "none" },
+            }}
+          >
             <Button
               variant="contained"
               sx={{

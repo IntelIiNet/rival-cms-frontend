@@ -1,0 +1,75 @@
+.file_upload_btn_wrapper {
+  border: 2px solid var(--200, #bee3f8);
+  background: #f7fafc;
+  height: 153px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.file_upload_btn {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 5px;
+  background: #2c5282;
+  padding: 10px 10px;
+  text-transform: none;
+  margin-bottom: 15px;
+}
+
+.file_upload_text {
+  color: #2c5282;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.blog_img_name {
+  color: var(--900, #2a4365);
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.blog_published_time {
+  color: var(--900, #2a4365);
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.filter_tag {
+  color: var(--300, #90cdf4);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: none;
+  margin-right: 15px;
+}
+.filter_tag:hover {
+  color: var(--300, #90cdf4);
+}
+.filter_img_btn {
+  border-radius: 50px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: none;
+  width: 85px;
+}
