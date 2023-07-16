@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
@@ -17,8 +18,10 @@ import {
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import styles from "@/styles/ViewSite.module.css";
+import { useRouter } from "next/router";
 
 const viewSite = () => {
+  const router = useRouter();
   return (
     <Layout>
       <Head>
@@ -28,7 +31,7 @@ const viewSite = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Container sx={{ mt: "59px" }}>
+        <Container sx={{ mt: "108px" }}>
           <TableContainer sx={{ maxHeight: 620 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -44,6 +47,7 @@ const viewSite = () => {
                   </TableCell>
                   <TableCell sx={{ textAlign: "end" }}>
                     <Button
+                      onClick={() => router.push("/write-blog")}
                       variant="contained"
                       className={styles.btnText}
                       startIcon={

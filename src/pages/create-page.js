@@ -31,7 +31,7 @@ export default function createPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Container sx={{ mt: "59px" }}>
+        <Container sx={{ mt: "110px" }}>
           <TableContainer sx={{ maxHeight: 620 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>

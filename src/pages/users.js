@@ -1,7 +1,115 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState, useEffect } from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
-const dashboard = () => {
+import axios from "axios";
+import {
+  Typography,
+  TableRow,
+  TableHead,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  IconButton,
+  InputBase,
+  Button,
+  Grid,
+  Stack,
+  Pagination,
+  Box,
+  Avatar,
+  Fab,
+  styled,
+  TablePagination,
+  Container,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+} from "@mui/material";
+import {
+  DeleteOutlineOutlined,
+  EditOutlined,
+  Search,
+} from "@mui/icons-material";
+import { userHeading, tableLoaderBox } from "./muiUserStyle";
+import AddUserDialog from "../components/AddUser";
+import EditUserDialog from "../components/EditUserDialog";
+
+const StyledTableRow = styled(TableRow)((props) => ({
+  "&:nth-of-type(odd)": {
+    background: props.theme.palette.background.bgTableOddRow,
+  },
+  "&:nth-of-type(even)": {
+    background: props.theme.palette.background.bgTableEvenRow,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+  "&.MuiTableRow-root:hover": {
+    background: props.theme.palette.background.bgTableRowHover,
+  },
+}));
+
+const User = () => {
+  const [rows, setRows] = useState();
+  const [page, setPage] = React.useState(0);
+  const [loading, setLoading] = useState(true);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [selectedUser, setSelectedUser] = useState();
+  const [searchResult, setSearchResult] = useState("");
+  const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
+  const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
+
+  useEffect(() => {
+    const getUsersList = async () => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/albums"
+      );
+      setRows(response.data);
+      setLoading(false);
+      console.log("response", response);
+    };
+    getUsersList();
+  }, []);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const handleCloseEditDialog = () => {
+    setOpenEditUserDialog(false);
+    setOpenAddUserDialog(false);
+  };
+  const handleEditUser = (data) => {
+    setOpenEditUserDialog(true);
+    setSelectedUser(data);
+  };
+
+  const handleOpenDeleteDial = (userProfile) => {
+    setOpenDeleteDialog(true);
+    setSelectedUser(userProfile);
+  };
+
+  const handleDeleteSelectedUser = () => {
+    console.log("delete selected user");
+  };
+
+  const handleSearch = (event) => {
+    setSearchResult(event.target.value);
+  };
+
+  console.log("rows", rows);
+
   return (
     <Layout>
       <Head>
@@ -11,9 +119,321 @@ const dashboard = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Users</h1>
+        <Container sx={{ mt: 10 }}>
+          <Grid spacing={2} container>
+            <Grid item lg={10} md={8} sm={8} xs={12}>
+              <InputBase
+                onChange={(event) => handleSearch(event)}
+                sx={{
+                  width: "100%",
+                  height: "48px",
+                  borderRadius: 2,
+                  backgroundColor: "#EDF2F7",
+                }}
+                placeholder={"Search User"}
+                inputProps={{ "aria-label": "search" }}
+                startAdornment={
+                  <Search
+                    sx={{
+                      color: "rgba(151, 151, 151, 0.68);",
+                      marginLeft: "6px",
+                    }}
+                  />
+                }
+              />
+            </Grid>
+            <Grid item lg={2} md={4} sm={4} xs={12}>
+              <Button
+                onClick={() => setOpenAddUserDialog(true)}
+                disableRipple
+                fullWidth
+                sx={{
+                  backgroundColor: "#2a4365",
+                  color: "white",
+                  height: "48px",
+                  "&:hover": {
+                    boxShadow: 4,
+                    backgroundColor: "#2a4365",
+                    color: "white",
+                  },
+                }}
+              >
+                <Typography sx={userHeading} variant="userHeadingBoldButton">
+                  Create a new user
+                </Typography>
+              </Button>
+            </Grid>
+          </Grid>
+
+          <TableContainer
+            component={Paper}
+            elevation={0}
+            sx={{
+              marginTop: "30px",
+              maxHeight: 650,
+              borderRadius: "10px",
+              [`::-webkit-scrollbar`]: {
+                width: "0px",
+                background: "transparent",
+              },
+            }}
+          >
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead sx={{ backgroundColor: "#2C5282" }}>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      backgroundColor: "#2C5282",
+                    }}
+                  >
+                    <Typography sx={userHeading} variant="userTableHeadingBold">
+                      Name
+                    </Typography>
+                  </TableCell>
+                  {loading ? null : (
+                    <>
+                      <TableCell sx={{ backgroundColor: "#2C5282" }}>
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
+                          Role
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell sx={{ backgroundColor: "#2C5282" }}>
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
+                          Status
+                        </Typography>
+                      </TableCell>
+                      <TableCell sx={{ backgroundColor: "#2C5282" }}>
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
+                          Action
+                        </Typography>
+                      </TableCell>
+                    </>
+                  )}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading ? (
+                  <TableRow>
+                    <Box style={tableLoaderBox}>loading...</Box>
+                  </TableRow>
+                ) : rows && rows?.length < 1 ? (
+                  <TableRow>
+                    <Box style={tableLoaderBox}>
+                      <Typography sx={userHeading} variant="userTableCellName">
+                        No User Available
+                      </Typography>
+                    </Box>
+                  </TableRow>
+                ) : (
+                  rows &&
+                  rows
+                    ?.filter((u) => {
+                      const searchValue = searchResult?.toLowerCase() || "";
+                      const titleMatch = u?.title
+                        .toLowerCase()
+                        .includes(searchValue);
+
+                      return titleMatch;
+                    })
+                    ?.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    .map((row) => (
+                      <StyledTableRow
+                        hover
+                        key={row.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell
+                          sx={{
+                            padding: "18px",
+                          }}
+                          component="th"
+                          scope="row"
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Avatar
+                              sx={{
+                                backgroundColor: "background.bgLayoutA",
+                                color: "white",
+                                marginRight: "10px",
+                                textTransform: "uppercase",
+                                backgroundColor: "secondary.main",
+                              }}
+                            >
+                              {row?.title.slice(0, 1)}
+                            </Avatar>
+                            <Typography
+                              sx={userHeading}
+                              variant="userTableCellName"
+                            >
+                              {row?.title}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+
+                        <TableCell>hello</TableCell>
+                        <TableCell>hello</TableCell>
+
+                        <TableCell>
+                          <Box>
+                            <span
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                              }}
+                            >
+                              <IconButton
+                                sx={{
+                                  backgroundColor: "#2C5282",
+                                  "&:hover": {
+                                    backgroundColor: "#2C5282",
+                                  },
+                                }}
+                                onClick={() => {
+                                  handleEditUser(row);
+                                }}
+                              >
+                                <EditOutlined sx={{ color: "white" }} />
+                              </IconButton>
+                              <IconButton
+                                sx={{
+                                  backgroundColor: "#2C5282",
+                                  "&:hover": {
+                                    backgroundColor: "#2C5282",
+                                  },
+                                }}
+                                onClick={() => {
+                                  handleOpenDeleteDial(row);
+                                }}
+                              >
+                                <DeleteOutlineOutlined
+                                  sx={{ color: "white" }}
+                                />
+                              </IconButton>
+                            </span>
+                          </Box>
+                        </TableCell>
+                      </StyledTableRow>
+                    ))
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 100]}
+            component="div"
+            count={rows ? rows.length : 0}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Container>
       </main>
+
+      {openAddUserDialog && (
+        <AddUserDialog
+          open={openAddUserDialog}
+          handleCloseEditDialog={handleCloseEditDialog}
+        />
+      )}
+      {openEditUserDialog && (
+        <EditUserDialog
+          open={openEditUserDialog}
+          user={selectedUser}
+          handleCloseEditDialog={handleCloseEditDialog}
+        />
+      )}
+      {openDeleteDialog && (
+        <Dialog
+          open={openDeleteDialog}
+          onClose={() => setOpenDeleteDialog(false)}
+          fullWidth
+        >
+          <DialogTitle
+            sx={{
+              backgroundColor: "#2C5282",
+              color: "white",
+              fontFamily: "Poppins-semibold",
+              fontSize: "16px",
+            }}
+          >
+            Delete User
+          </DialogTitle>
+          <DialogContent dividers>
+            <Typography
+              variant="caption"
+              sx={{ fontFamily: "Poppins", fontSize: "14px" }}
+            >
+              This action cannot be undone. Do you want to perform this action
+              <b>&quot;{selectedUser.title}&quot;</b> ?
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit" onClick={() => setOpenDeleteDialog(false)}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              sx={
+                loading
+                  ? {
+                      color: "white",
+                      fontSize: "15px",
+                      background: "#979797",
+                      borderRadius: "10px",
+                      backgroundColor: "secondary.main",
+                      "&:hover": { backgroundColor: "#979797" },
+                      "&:disabled": {
+                        backgroundColor: "#979797",
+                      },
+                    }
+                  : {
+                      color: "white",
+                      fontSize: "15px",
+                      backgroundColor: "primary.main",
+                      borderRadius: "10px",
+
+                      textTransform: "capitalize",
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+                        boxShadow: 3,
+                      },
+                      "&:disabled": {
+                        backgroundColor: "#979797",
+                      },
+                    }
+              }
+              onClick={handleDeleteSelectedUser}
+            >
+              Delete User Profile
+              {loading ? "Loading..." : ""}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Layout>
   );
 };
-export default dashboard;
+export default User;

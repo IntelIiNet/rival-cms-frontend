@@ -50,6 +50,7 @@ export default function Home() {
             height: "40%",
             objectFit: "fill",
           }}
+          className={styles.main_img}
         />
         <Box
           sx={{
@@ -148,6 +149,7 @@ export default function Home() {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  flexWrap: "wrap",
                 }}
               >
                 <Typography variant="body1" className={`${styles["link"]}`}>

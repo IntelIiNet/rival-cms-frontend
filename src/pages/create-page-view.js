@@ -23,7 +23,7 @@ const createPageView = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Container sx={{ mt: "59px" }}>
+        <Container sx={{ mt: "110px" }}>
           <Stack
             direction="row"
             alignItems="center"

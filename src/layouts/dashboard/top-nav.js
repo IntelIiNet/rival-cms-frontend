@@ -19,8 +19,7 @@ const TOP_NAV_HEIGHT = 64;
 export const TopNav = (props) => {
   const { onNavOpen } = props;
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
-  const [searchResult, setSearchResult] = useState();
-  console.log("searchResult", searchResult);
+
   return (
     <>
       <Box
@@ -28,11 +27,11 @@ export const TopNav = (props) => {
         sx={{
           backdropFilter: "blur(6px)",
           backgroundColor: "primary.main",
-          position: "sticky",
-          left: {
-            lg: `${SIDE_NAV_WIDTH}px`,
-          },
-          top: 0,
+          position: "fixed",
+          // left: {
+          //   lg: `${SIDE_NAV_WIDTH}px`,
+          // },
+          // top: 0,
           width: "100%",
           zIndex: (theme) => theme.zIndex.appBar,
         }}

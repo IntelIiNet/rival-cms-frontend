@@ -31,7 +31,7 @@ import TablePhoto from "../../public/assets/photo.png";
 const Files = () => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState();
+  const [searchResult, setSearchResult] = useState("");
   const [activeButton, setActiveButton] = useState("Images");
 
   const handleButtonClick = (buttonName) => {
@@ -66,7 +66,7 @@ const Files = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: handleChangeSelectImage,
-    accept: "image/*",
+    accept: "image/*, audio/*, video/*",
   });
   return (
     <Layout>
@@ -77,7 +77,7 @@ const Files = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Container sx={{ mt: "59px" }}>
+        <Container sx={{ mt: "135px" }}>
           {/* file uplaod  */}
           <Box {...getRootProps()} style={{ marginTop: 16 }}>
             <input {...getInputProps()} />

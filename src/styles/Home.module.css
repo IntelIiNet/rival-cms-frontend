@@ -1,12 +1,17 @@
 .link {
   color: #fffcfe;
-  font-size: 15px;
+  font-size: 1rem;
   font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
   text-transform: capitalize;
+}
+.main_img {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .sign_in_btn {
