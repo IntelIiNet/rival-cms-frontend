@@ -132,13 +132,13 @@ function Topbar(props) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
               variant="outlined"
-              color="secondary"
               onClick={() => router.push("/auth/sign-in")}
               sx={{
-                border: "2px solid var(--100, #F7FAFC)",
+                color: "white",
                 textTransform: "none",
                 "&:hover": {
                   border: "2px solid var(--100, #F7FAFC)",
+                  boxShadow: 2,
                 },
               }}
             >
