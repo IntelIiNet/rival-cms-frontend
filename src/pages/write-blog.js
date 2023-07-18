@@ -3,15 +3,21 @@ import React, { useState } from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
 import QuillNoSSRWrapper from "../components/Editor";
-
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   Container,
+  InputBase,
+  TextField,
   Typography,
 } from "@mui/material";
+import PermMediaIcon from "@mui/icons-material/PermMedia";
+import { Box } from "@mui/system";
+import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import axios from "axios";
 const writeBlog = () => {
   const modules = {
     toolbar: [
@@ -24,7 +30,6 @@ const writeBlog = () => {
         { indent: "-1" },
         { indent: "+1" },
       ],
-      ["link", "image", "video"],
       ["clean"],
       [{ align: [] }],
 
@@ -54,17 +59,82 @@ const writeBlog = () => {
   ];
 
   const [textAreaData, setTextAreaData] = useState();
+  const [imageUrl, setImageUrl] = useState();
+  const [loading, setLoading] = useState(false);
+  console.log("textAreaData", textAreaData);
+
   const handleChange = (e) => {
     const editorData = e;
     setTextAreaData(editorData);
   };
 
-  const handlePublichBlog = () => {
+  const handlePublishhBlog = async () => {
     if (textAreaData === undefined) {
       alert("Please write a blog ");
+      return; // Return to exit the function early if there's no data
     }
-    console.log("textAreaData", textAreaData);
+
+    let finalData = {
+      data: {
+        name: textAreaData,
+      },
+      status: "Published",
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/blog",
+        finalData
+      );
+
+      console.log("publishing blog response", response.data);
+      // Access response.data to see the data returned by the server
+
+      // ...
+    } catch (error) {
+      console.error("Error publishing blog:", error);
+    }
   };
+
+  const handleImageUpload = async (file) => {
+    console.log("fiine in function", file);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axios.post(
+        "http://localhost:8080/image-upload/upload",
+        formData
+      );
+      console.log("iamges reponse", response);
+
+      if (response && response.data) {
+        setLoading(false);
+        const imageUrl = response.data.url;
+        setImageUrl(imageUrl);
+        localStorage.setItem("url", imageUrl);
+      } else {
+        console.error("Failed to upload image.");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleChangeSelectImage = (acceptedFiles) => {
+    console.log("acceptedFiles", acceptedFiles);
+    acceptedFiles.forEach((file) => {
+      console.log("files", file);
+      handleImageUpload(file);
+    });
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleChangeSelectImage,
+    accept: "image/*, audio/*, video/*",
+  });
+
   return (
     <Layout>
       <Head>
@@ -90,14 +160,56 @@ const writeBlog = () => {
           >
             Write Blog here
           </Typography>
+
           <Card>
             <CardContent sx={{ maxHeight: "100%" }}>
+              <Box
+                {...getRootProps()}
+                sx={{
+                  my: 3,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <input {...getInputProps()} />
+                <Box>
+                  <Box>
+                    <Button
+                      startIcon={<PermMediaIcon />}
+                      variant="contained"
+                      component="label"
+                    >
+                      {loading ? "Loading..." : "Add Media"}
+
+                      <input multiple type="file" hidden {...getInputProps()} />
+                    </Button>
+                  </Box>
+                </Box>
+              </Box>
+              {imageUrl && (
+                <Typography
+                  sx={{ pb: 1 }}
+                >{`Selected Image: ${imageUrl.substring(
+                  imageUrl.lastIndexOf("/") + 1
+                )}`}</Typography>
+              )}
+              <Image
+                src={imageUrl}
+                alt="blog-img"
+                width={100}
+                height={100}
+                style={{
+                  display: "none",
+                }}
+              />
               <div>
                 <QuillNoSSRWrapper
                   modules={modules}
                   formats={formats}
                   theme="snow"
                   onChange={handleChange}
+                  placeholder="Start Typing"
                   style={{ height: "410px" }}
                 />
               </div>
@@ -106,7 +218,7 @@ const writeBlog = () => {
               sx={{ display: "flex", justifyContent: "flex-end", mt: 4 }}
             >
               <Button
-                onClick={handlePublichBlog}
+                onClick={handlePublishhBlog}
                 disabled={textAreaData === undefined}
                 sx={{
                   backgroundColor: "#63B3ED",

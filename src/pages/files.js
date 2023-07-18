@@ -27,40 +27,59 @@ import { Layout } from "../layouts/dashboard/layout";
 import styles from "@/styles/Files.module.css";
 import Image from "next/image";
 import TablePhoto from "../../public/assets/photo.png";
+import axios from "axios";
 
 const Files = () => {
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState("");
   const [activeButton, setActiveButton] = useState("Images");
+  const [loading, setLoading] = useState(false);
+
+  const [imageUrl, setImageUrl] = useState();
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
 
-  console.log("searchResult", searchResult, loading);
-
   useEffect(() => {
-    localStorage.setItem("images", JSON.stringify(files));
-    if (files.length < 1) {
-      localStorage.removeItem("images");
+    const url = localStorage.getItem("url");
+    if (imageUrl === undefined) {
+      setImageUrl(url);
+      // setName(url.pathname.split("/").pop());
     }
-  }, [files]);
+  }, [imageUrl]);
+
+  const handleImageUpload = async (file) => {
+    console.log("file", file);
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axios.post(
+        "http://localhost:8080/image-upload/upload",
+        formData
+      );
+      console.log("iamges reponse", response);
+
+      if (response && response.data) {
+        setLoading(false);
+        const imageUrl = response.data.url;
+
+        setImageUrl(imageUrl);
+        localStorage.setItem("url", imageUrl);
+
+        // Do something with the image URL if needed
+      } else {
+        console.error("Failed to upload image.");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
 
   const handleChangeSelectImage = (acceptedFiles) => {
-    const updatedFiles = [...files];
-
     acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.addEventListener("load", () => {
-        const newImage = {
-          url: reader.result,
-        };
-        updatedFiles.push(newImage);
-        setFiles(updatedFiles);
-      });
+      handleImageUpload(file);
     });
   };
 
@@ -89,7 +108,8 @@ const Files = () => {
                   disabled={loading}
                   className={styles.file_upload_btn}
                 >
-                  Click to Upload
+                  {loading ? "Loading..." : "Click to Upload"}
+
                   <input multiple type="file" hidden {...getInputProps()} />
                 </Button>
               </Box>
@@ -267,7 +287,12 @@ const Files = () => {
                 </TableRow>
                 <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
                   <TableCell sx={{ my: 2, height: 100, border: "none" }}>
-                    <Image src={TablePhoto} alt="blog-img" />
+                    <Image
+                      src={imageUrl}
+                      alt="blog-img"
+                      width={100}
+                      height={100}
+                    />
                   </TableCell>
                   <TableCell sx={{ border: "none" }}>
                     <Typography className={styles.blog_img_name}>

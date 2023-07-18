@@ -39,16 +39,18 @@ const signIn = () => {
       .post(url, userDetails)
       .then((response) => {
         console.log("Response of code login:", response);
+        localStorage.setItem("token", response.data.access_token);
         //  fireToasterContext.fireToasterHandler(true, `User is ${response.data}`);
         route.push("/view-site");
       })
 
       .catch((error) => {
-        console.error("Error:", error);
         fireToasterContext.fireToasterHandler(
           false,
           error.response.data.message
         );
+
+        console.error("Error:", error);
       });
   };
 

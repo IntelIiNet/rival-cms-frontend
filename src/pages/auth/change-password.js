@@ -38,13 +38,18 @@ const Index = () => {
       .post(url, userDetails)
       .then((response) => {
         console.log("Reset password response:", response);
-        //  fireToasterContext.fireToasterHandler(true, `User is ${response.data}`);
+        fireToasterContext.fireToasterHandler(true, response.data);
         route.push("/auth/sign-in");
       })
 
       .catch((error) => {
         console.error("Error:", error);
-        fireToasterContext.fireToasterHandler(false, "error");
+        if (error) {
+          fireToasterContext.fireToasterHandler(
+            false,
+            error.response.data.message
+          );
+        }
       });
   };
 

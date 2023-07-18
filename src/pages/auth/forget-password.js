@@ -13,16 +13,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { useRouter } from "next/router";
 import toasterContext from "../../utils/context/tosterContext";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+
 const Index = () => {
   const route = useRouter();
   const [userDetails, setUserDetails] = useState({});
   const fireToasterContext = useContext(toasterContext);
-
+  console.log("userDetails", userDetails);
   console.log("fireToasterContext", fireToasterContext);
 
   const handleChange = (evnet) => {
@@ -44,7 +46,10 @@ const Index = () => {
 
       .catch((error) => {
         console.error("Error:", error);
-        fireToasterContext.fireToasterHandler(false, "error");
+        fireToasterContext.fireToasterHandler(
+          false,
+          error.response.data.message
+        );
       });
   };
 
@@ -98,63 +103,73 @@ const Index = () => {
           >
             <CardContent>
               <Container>
-                <Box
-                  component="form"
-                  noValidate
-                  onSubmit={(event) => handleSubmit(event)}
-                  sx={{ mt: 3 }}
+                <Formik
+                  initialValues={{ email: "" }}
+                  validationSchema={Yup.object({
+                    email: Yup.string()
+                      .email("Invalid email address")
+                      .required("Email address is required"),
+                  })}
+                  onSubmit={(values, { setSubmitting }) => {
+                    handleForgetPassword(values);
+                    setSubmitting(false);
+                  }}
                 >
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          mb: 2,
-                        }}
-                      >
-                        <SvgIcon sx={{ mr: 2 }}>
-                          <EmailOutlinedIcon color="#2A4365" />
-                        </SvgIcon>
-                        <Box>
-                          <Typography className={`${styles["email-address"]}`}>
-                            Email Address
-                          </Typography>
+                  <Form>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            mb: 2,
+                          }}
+                        >
+                          <SvgIcon sx={{ mr: 2 }}>
+                            <EmailOutlinedIcon color="#2A4365" />
+                          </SvgIcon>
+                          <Box>
+                            <Typography
+                              className={`${styles["email-address"]}`}
+                            >
+                              Email Address
+                            </Typography>
+                          </Box>
                         </Box>
-                      </Box>
-                      <TextField
-                        required
-                        fullWidth
-                        name="email"
-                        autoComplete="email"
-                        onChange={(event) => handleChange(event)}
-                        sx={{
-                          backgroundColor: "#EDF2F7",
-                          borderRadius: "5px",
-                          height: "70px",
-                          "& fieldset": {
-                            border: "none",
-                          },
-                        }}
-                      />
-                    </Grid>
+                        <Field
+                          required
+                          fullWidth
+                          name="email"
+                          autoComplete="email"
+                          as={TextField}
+                          sx={{
+                            backgroundColor: "#EDF2F7",
+                            borderRadius: "5px",
+                            height: "70px",
+                            "& fieldset": {
+                              border: "none",
+                            },
+                          }}
+                        />
+                      </Grid>
 
-                    <Grid item xs={12} sx={{ my: 3 }}>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{
-                          height: "61px",
-                          backgroundColor: "#2A4365",
-                          borderRadius: "5px",
-                        }}
-                      >
-                        Get Code
-                      </Button>
+                      <Grid item xs={12} sx={{ my: 3 }}>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{
+                            height: "61px",
+                            backgroundColor: "#2A4365",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          Get Code
+                        </Button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Box>
+                  </Form>
+                </Formik>
               </Container>
             </CardContent>
           </Card>

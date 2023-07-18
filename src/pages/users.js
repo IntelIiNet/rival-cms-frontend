@@ -55,7 +55,7 @@ const StyledTableRow = styled(TableRow)((props) => ({
 }));
 
 const User = () => {
-  const [rows, setRows] = useState();
+  const [rows, setRows] = useState([]);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -67,9 +67,13 @@ const User = () => {
 
   useEffect(() => {
     const getUsersList = async () => {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/albums"
-      );
+      const token = localStorage.getItem("token");
+      // const response = await axios.get("http://localhost:8080/users");
+      const response = await axios.get(`http://localhost:8080/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setRows(response.data);
       setLoading(false);
       console.log("response", response);
@@ -197,16 +201,23 @@ const User = () => {
                           sx={userHeading}
                           variant="userTableHeadingBold"
                         >
-                          Role
+                          Status
                         </Typography>
                       </TableCell>
-
                       <TableCell sx={{ backgroundColor: "#2C5282" }}>
                         <Typography
                           sx={userHeading}
                           variant="userTableHeadingBold"
                         >
-                          Status
+                          Phone
+                        </Typography>
+                      </TableCell>
+                      <TableCell sx={{ backgroundColor: "#2C5282" }}>
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
+                          Email
                         </Typography>
                       </TableCell>
                       <TableCell sx={{ backgroundColor: "#2C5282" }}>
@@ -239,7 +250,7 @@ const User = () => {
                   rows
                     ?.filter((u) => {
                       const searchValue = searchResult?.toLowerCase() || "";
-                      const titleMatch = u?.title
+                      const titleMatch = u?.name
                         .toLowerCase()
                         .includes(searchValue);
 
@@ -280,19 +291,20 @@ const User = () => {
                                 backgroundColor: "secondary.main",
                               }}
                             >
-                              {row?.title.slice(0, 1)}
+                              {row?.name.slice(0, 1)}
                             </Avatar>
                             <Typography
                               sx={userHeading}
                               variant="userTableCellName"
                             >
-                              {row?.title}
+                              {row?.name}
                             </Typography>
                           </Box>
                         </TableCell>
+                        <TableCell>{row.is_verified.toString()}</TableCell>
 
-                        <TableCell>hello</TableCell>
-                        <TableCell>hello</TableCell>
+                        <TableCell>{row.phone}</TableCell>
+                        <TableCell>{row.email}</TableCell>
 
                         <TableCell>
                           <Box>
