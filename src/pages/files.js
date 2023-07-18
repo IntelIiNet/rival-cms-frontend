@@ -42,9 +42,9 @@ const Files = () => {
 
   useEffect(() => {
     const url = localStorage.getItem("url");
+    setImageUrl(url);
     if (imageUrl === undefined) {
-      setImageUrl(url);
-      // setName(url.pathname.split("/").pop());
+      setImageUrl(TablePhoto);
     }
   }, [imageUrl]);
 
@@ -287,12 +287,14 @@ const Files = () => {
                 </TableRow>
                 <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
                   <TableCell sx={{ my: 2, height: 100, border: "none" }}>
-                    <Image
-                      src={imageUrl}
-                      alt="blog-img"
-                      width={100}
-                      height={100}
-                    />
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        alt="blog-img"
+                        width={100}
+                        height={100}
+                      />
+                    )}
                   </TableCell>
                   <TableCell sx={{ border: "none" }}>
                     <Typography className={styles.blog_img_name}>
