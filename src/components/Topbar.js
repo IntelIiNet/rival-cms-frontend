@@ -17,8 +17,8 @@ import Button from "@mui/material/Button";
 import styles from "@/styles/SignIn.module.css";
 
 import { useRouter } from "next/router";
-import Logo from "../../public/assets/logo.png";
 import Image from "next/image";
+import Logo from "../../public/Logo.png";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];

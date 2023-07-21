@@ -45,8 +45,6 @@ const signUp = () => {
     });
   };
 
-  console.log("userDetails", userDetails);
-
   const userLogin = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/users`, userDetails)

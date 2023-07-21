@@ -20,7 +20,8 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import styles from "@/styles/Layout.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import MainLogo from "../../../public/assets/Logo.png";
+// import MainLogo from "../../../public/assets/Logo.png";
+import Logo from "../../../public/Logo.png";
 
 //  <SvgIcon
 //    sx={{
@@ -84,7 +85,7 @@ export const TopNav = (props) => {
               onClick={() => router.push("/view-site")}
               sx={{ display: "flex", cursor: "pointer" }}
             >
-              <Image src={MainLogo} alt="logo" width={30} height={30} />
+              <Image src={Logo} alt="logo" width={30} height={30} />
               <Box>
                 <Typography
                   variant="body1"

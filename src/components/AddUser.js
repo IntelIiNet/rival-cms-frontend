@@ -15,6 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import toasterContext from "../utils/context/tosterContext";
 import axios from "axios";
 
 const userRoles = [
@@ -33,7 +34,14 @@ const userRoles = [
 ];
 
 function AddUser({ open, handleCloseEditDialog }) {
-  const [userDetails, setUserDetails] = React.useState({});
+  const [userDetails, setUserDetails] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    user_role: "",
+  });
+  const fireToasterContext = React.useContext(toasterContext);
   console.log("userDetails", userDetails);
   const handleChange = (event) => {
     setUserDetails({
@@ -43,16 +51,30 @@ function AddUser({ open, handleCloseEditDialog }) {
   };
 
   const handleAddUser = async () => {
-    let token = localStorage.getItem("token");
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}createSubUsers`,
-      userDetails,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    try {
+      let token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/createSubUsers`,
+        userDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status) {
+        fireToasterContext.fireToasterHandler(
+          true,
+          "User created successfully"
+        );
       }
-    );
+    } catch (error) {
+      fireToasterContext.fireToasterHandler(
+        false,
+        error.response?.data?.message
+      );
+    }
+
     console.log("response", response);
   };
   return (

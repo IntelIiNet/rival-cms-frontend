@@ -33,7 +33,7 @@ const Index = () => {
   };
 
   const handleChangePassword = async () => {
-    const url = "http://localhost:8080/users/changePassword";
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/changePassword`;
     await axios
       .post(url, userDetails)
       .then((response) => {

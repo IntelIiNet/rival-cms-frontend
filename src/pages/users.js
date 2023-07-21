@@ -11,17 +11,12 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   IconButton,
   InputBase,
   Button,
   Grid,
-  Stack,
-  Pagination,
   Box,
   Avatar,
-  Fab,
-  styled,
   TablePagination,
   Container,
   DialogActions,
@@ -38,24 +33,7 @@ import { userHeading, tableLoaderBox } from "./muiUserStyle";
 import AddUserDialog from "../components/AddUser";
 import EditUserDialog from "../components/EditUserDialog";
 
-const StyledTableRow = styled(TableRow)((props) => ({
-  "&:nth-of-type(odd)": {
-    background: props.theme.palette.background.bgTableOddRow,
-  },
-  "&:nth-of-type(even)": {
-    background: props.theme.palette.background.bgTableEvenRow,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-  "&.MuiTableRow-root:hover": {
-    background: props.theme.palette.background.bgTableRowHover,
-  },
-}));
-
-const User = () => {
-  // console.log("initialData", initialData);
+export default function User() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = useState(true);
@@ -67,8 +45,8 @@ const User = () => {
   const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const getUsersList = async () => {
-      const token = localStorage.getItem("token");
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/users`,
         {
@@ -170,7 +148,7 @@ const User = () => {
             </Grid>
           </Grid>
 
-          <TableContainer
+          <Box
             component={Paper}
             elevation={0}
             sx={{
@@ -186,17 +164,20 @@ const User = () => {
             <Table stickyHeader aria-label="sticky table">
               <TableHead sx={{ backgroundColor: "#2C5282" }}>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      backgroundColor: "#2C5282",
-                    }}
-                  >
-                    <Typography sx={userHeading} variant="userTableHeadingBold">
-                      Name
-                    </Typography>
-                  </TableCell>
                   {loading ? null : (
                     <>
+                      <TableCell
+                        sx={{
+                          backgroundColor: "#2C5282",
+                        }}
+                      >
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
+                          Name
+                        </Typography>
+                      </TableCell>
                       <TableCell sx={{ backgroundColor: "#2C5282" }}>
                         <Typography
                           sx={userHeading}
@@ -262,7 +243,7 @@ const User = () => {
                       page * rowsPerPage + rowsPerPage
                     )
                     .map((row) => (
-                      <StyledTableRow
+                      <TableRow
                         hover
                         key={row.id}
                         sx={{
@@ -347,12 +328,12 @@ const User = () => {
                             </span>
                           </Box>
                         </TableCell>
-                      </StyledTableRow>
+                      </TableRow>
                     ))
                 )}
               </TableBody>
             </Table>
-          </TableContainer>
+          </Box>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
@@ -448,44 +429,4 @@ const User = () => {
       )}
     </Layout>
   );
-};
-
-// export async function getServerSideProps(context) {
-//   const { req } = context;
-//   const cookie = req.headers.cookie;
-//   let token = null;
-
-//   if (cookie) {
-//     // Extract the token from the cookie
-//     const tokenCookie = cookie
-//       .split(";")
-//       .find((c) => c.trim().startsWith("token="));
-//     if (tokenCookie) {
-//       token = tokenCookie.split("=")[1];
-//     }
-//   }
-
-//   try {
-//     const response = await axios.get(
-//       `${process.env.NEXT_PUBLIC_API_URL}/users`,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       }
-//     );
-
-//     const initialData = response.data;
-
-//     return {
-//       props: { initialData },
-//     };
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-
-//     return {
-//       props: {},
-//     };
-//   }
-// }
-export default User;
+}
