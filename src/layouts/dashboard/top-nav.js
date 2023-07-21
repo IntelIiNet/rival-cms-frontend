@@ -19,7 +19,17 @@ import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import styles from "@/styles/Layout.module.css";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import MainLogo from "../../../public/assets/Logo.png";
 
+//  <SvgIcon
+//    sx={{
+//      mr: 1,
+//      height: "30px",
+//      width: "30px",
+//      transform: "rotate(358deg)",
+//    }}
+//  ></SvgIcon>;
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 
@@ -47,7 +57,7 @@ export const TopNav = (props) => {
         component="header"
         sx={{
           backdropFilter: "blur(6px)",
-          backgroundColor: "primary.main",
+          backgroundColor: "#00314e",
           position: "fixed",
 
           width: "100%",
@@ -74,53 +84,27 @@ export const TopNav = (props) => {
               onClick={() => router.push("/view-site")}
               sx={{ display: "flex", cursor: "pointer" }}
             >
-              <SvgIcon
-                sx={{
-                  mr: 1,
-                  height: "30px",
-                  width: "30px",
-                  transform: "rotate(358deg)",
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="42"
-                  height="42"
-                  viewBox="0 0 42 42"
-                  fill="none"
-                >
-                  <path
-                    d="M13.0467 28.9068L13.2374 10.0503L31.0734 16.1724L13.0467 28.9068Z"
-                    stroke="#EBF8FF"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M10.7387 25.6397L28.5747 31.7618L28.7654 12.9053L10.7387 25.6397Z"
-                    stroke="#EBF8FF"
-                    stroke-width="2"
-                  />
-                </svg>
-              </SvgIcon>
+              <Image src={MainLogo} alt="logo" width={30} height={30} />
               <Box>
                 <Typography
                   variant="body1"
                   component="span"
                   gutterBottom
                   sx={{
-                    color: "#FFFFFF",
+                    color: "#3ab9b2",
                     fontWeight: 400,
                     fontSize: "20px",
                   }}
                 >
-                  Rival
+                  Grait
                 </Typography>
                 <Typography
                   variant="body1"
                   component="span"
                   gutterBottom
-                  sx={{ color: "#63B3ED", fontWeight: 400, fontSize: "20px" }}
+                  sx={{ color: "white", fontWeight: 400, fontSize: "20px" }}
                 >
-                  CMS
+                  Deals
                 </Typography>
               </Box>
             </Box>
@@ -133,17 +117,6 @@ export const TopNav = (props) => {
               display: !lgUp ? "none" : "auto",
             }}
           >
-            <Button
-              variant="contained"
-              sx={{
-                "&:hover": {
-                  boxShadow: 2,
-                },
-              }}
-              className={styles.pro_paln_btn}
-            >
-              Pro plan
-            </Button>
             <IconButton
               onClick={handleClick}
               size="small"

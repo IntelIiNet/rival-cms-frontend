@@ -33,13 +33,19 @@ const signIn = () => {
 
   console.log("userDetails", userDetails);
   const userLogin = async () => {
-    const url = "http://localhost:8080/users/token";
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/token`;
 
     await axios
       .post(url, userDetails)
       .then((response) => {
         console.log("Response of code login:", response);
         localStorage.setItem("token", response.data.access_token);
+
+        const token = response.data.access_token;
+
+        // Set the token as an HttpOnly cookie using document.cookie
+        document.cookie = `token=${token}; path=/`;
+
         //  fireToasterContext.fireToasterHandler(true, `User is ${response.data}`);
         route.push("/view-site");
       })
@@ -47,7 +53,7 @@ const signIn = () => {
       .catch((error) => {
         fireToasterContext.fireToasterHandler(
           false,
-          error.response.data.message
+          error?.response?.data?.message
         );
 
         console.error("Error:", error);
@@ -74,18 +80,18 @@ const signIn = () => {
             component="span"
             gutterBottom
             className={`${styles["link"]}`}
-            style={{ color: "#2A4365" }}
+            style={{ color: "#3ec1b9" }}
           >
-            Rival
+            Grait
           </Typography>
           <Typography
             variant="body1"
             component="span"
             gutterBottom
             className={`${styles["link"]}`}
-            style={{ color: "#63B3ED" }}
+            style={{ color: "#104c62" }}
           >
-            CMS
+            Deals
           </Typography>
         </div>
         <Container
@@ -201,8 +207,11 @@ const signIn = () => {
                         variant="contained"
                         sx={{
                           height: "61px",
-                          backgroundColor: "#2A4365",
+                          backgroundColor: "#3ec1b9",
+                          color: "white",
+                          fontWeight: 700,
                           borderRadius: "5px",
+                          textTransform: "capitalize",
                         }}
                       >
                         Sign in

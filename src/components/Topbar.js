@@ -40,18 +40,18 @@ function Topbar(props) {
           component="span"
           gutterBottom
           className={` ${styles["appbar"]}`}
-          style={{ color: "#2A4365", my: 2 }}
+          style={{ color: "#3ec1b9", my: 2 }}
         >
-          Rival
+          Grait
         </Typography>
         <Typography
           variant="body1"
           component="span"
           gutterBottom
           className={` ${styles["appbar"]}`}
-          style={{ color: "#63B3ED", my: 2 }}
+          style={{ color: "white", my: 2 }}
         >
-          CMS
+          Deals
         </Typography>
       </div>
       <Divider />
@@ -114,17 +114,18 @@ function Topbar(props) {
                   component="span"
                   gutterBottom
                   className={` ${styles["appbar"]}`}
+                  style={{ color: "#3ec1b9" }}
                 >
-                  Rival
+                  Grait
                 </Typography>
                 <Typography
                   variant="body1"
                   component="span"
                   gutterBottom
                   className={` ${styles["appbar"]}`}
-                  style={{ color: "#63B3ED" }}
+                  style={{ color: "white" }}
                 >
-                  CMS
+                  Deals
                 </Typography>
               </Box>
             </Box>
@@ -136,6 +137,7 @@ function Topbar(props) {
               sx={{
                 color: "white",
                 textTransform: "none",
+                backgroundColor: "#3ec1b9",
                 "&:hover": {
                   border: "2px solid var(--100, #F7FAFC)",
                   boxShadow: 2,

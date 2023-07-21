@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
 import QuillNoSSRWrapper from "../components/Editor";
+// import EditorLexcial from "../components/EditorLexcial";
 import {
   Button,
   Card,
@@ -83,7 +84,7 @@ const writeBlog = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/blog",
+        `${process.env.NEXT_PUBLIC_API_URL}/blog`,
         finalData
       );
 
@@ -104,7 +105,7 @@ const writeBlog = () => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:8080/image-upload/upload",
+        `${process.env.NEXT_PUBLIC_API_URL}/image-upload/upload`,
         formData
       );
       console.log("iamges reponse", response);
@@ -145,6 +146,7 @@ const writeBlog = () => {
       </Head>
       <main style={{ height: "90vh" }}>
         <Container sx={{ mt: "110px" }}>
+          {/* <EditorLexcial /> */}
           <Typography
             variant="h2"
             sx={{
@@ -179,6 +181,10 @@ const writeBlog = () => {
                       startIcon={<PermMediaIcon />}
                       variant="contained"
                       component="label"
+                      sx={{
+                        backgroundColor: "#40c1b9",
+                        color: "white",
+                      }}
                     >
                       {loading ? "Loading..." : "Add Media"}
 
@@ -221,13 +227,13 @@ const writeBlog = () => {
                 onClick={handlePublishhBlog}
                 disabled={textAreaData === undefined}
                 sx={{
-                  backgroundColor: "#63B3ED",
+                  backgroundColor: "#40c1b9",
                   color: "white",
                   width: "135px",
                   height: "42px",
                   "&:hover": {
                     boxShadow: 4,
-                    backgroundColor: "#63B3ED",
+                    backgroundColor: "#40c1b9",
                     color: "white",
                   },
                 }}

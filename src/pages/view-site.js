@@ -50,6 +50,10 @@ const viewSite = () => {
                       onClick={() => router.push("/write-blog")}
                       variant="contained"
                       className={styles.btnText}
+                      sx={{
+                        backgroundColor: "#40c1b9",
+                        color: "white",
+                      }}
                       startIcon={
                         <SvgIcon fontSize="small">
                           <svg

@@ -22,7 +22,7 @@ export const SideNav = (props) => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          color: "#858585",
+          color: "red",
         }}
       >
         <Box sx={{ p: 3 }}>
@@ -36,19 +36,6 @@ export const SideNav = (props) => {
               color: "#2C5282",
             }}
           >
-            <Typography
-              sx={{
-                color: "#4299E1",
-                fontSize: "18px",
-                fontWeight: 500,
-                fontStyle: "normal",
-                lineHeight: "normal",
-                mt: 6,
-                mb: 1,
-              }}
-            >
-              Manage
-            </Typography>
             {items.map((item) => {
               const active = item.path ? pathname === item.path : false;
 
@@ -76,18 +63,6 @@ export const SideNav = (props) => {
               color: "#2C5282",
             }}
           >
-            <Typography
-              sx={{
-                color: "#4299E1",
-                fontSize: "18px",
-                fontWeight: 500,
-                fontStyle: "normal",
-                lineHeight: "normal",
-                mb: 1,
-              }}
-            >
-              Pro features
-            </Typography>
             {proFeaturesItems.map((item) => {
               const active = item.path ? pathname === item.path : false;
 

@@ -56,7 +56,7 @@ const Files = () => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://localhost:8080/image-upload/upload",
+        `${process.env.NEXT_PUBLIC_API_URL}/image-upload/upload`,
         formData
       );
       console.log("iamges reponse", response);

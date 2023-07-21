@@ -35,11 +35,11 @@ export const SideNavItem = (props) => {
             width: "100%",
             color: "#2C5282",
             ...(active && {
-              color: "#2C5282",
-              backgroundColor: "#BEE3F8",
+              color: "white",
+              backgroundColor: "#3ec1b9",
             }),
             "&:hover": {
-              backgroundColor: "#63B3ED",
+              backgroundColor: "#35A29F",
               color: "white",
             },
           }}
@@ -50,12 +50,12 @@ export const SideNavItem = (props) => {
               component="span"
               sx={{
                 alignItems: "center",
-                color: "#2C5282",
+                color: "white",
                 display: "inline-flex",
                 justifyContent: "center",
                 mr: 2,
                 ...(active && {
-                  color: "primary.main",
+                  color: "white",
                 }),
               }}
             >
@@ -72,7 +72,7 @@ export const SideNavItem = (props) => {
               lineHeight: "24px",
               whiteSpace: "nowrap",
               ...(active && {
-                color: "#2C5282",
+                color: "white",
                 fontWeight: 600,
               }),
               ...(disabled && {

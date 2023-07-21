@@ -55,6 +55,7 @@ const StyledTableRow = styled(TableRow)((props) => ({
 }));
 
 const User = () => {
+  // console.log("initialData", initialData);
   const [rows, setRows] = useState([]);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = useState(true);
@@ -68,12 +69,14 @@ const User = () => {
   useEffect(() => {
     const getUsersList = async () => {
       const token = localStorage.getItem("token");
-      // const response = await axios.get("http://localhost:8080/users");
-      const response = await axios.get(`http://localhost:8080/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setRows(response.data);
       setLoading(false);
       console.log("response", response);
@@ -111,8 +114,6 @@ const User = () => {
   const handleSearch = (event) => {
     setSearchResult(event.target.value);
   };
-
-  console.log("rows", rows);
 
   return (
     <Layout>
@@ -448,4 +449,43 @@ const User = () => {
     </Layout>
   );
 };
+
+// export async function getServerSideProps(context) {
+//   const { req } = context;
+//   const cookie = req.headers.cookie;
+//   let token = null;
+
+//   if (cookie) {
+//     // Extract the token from the cookie
+//     const tokenCookie = cookie
+//       .split(";")
+//       .find((c) => c.trim().startsWith("token="));
+//     if (tokenCookie) {
+//       token = tokenCookie.split("=")[1];
+//     }
+//   }
+
+//   try {
+//     const response = await axios.get(
+//       `${process.env.NEXT_PUBLIC_API_URL}/users`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );
+
+//     const initialData = response.data;
+
+//     return {
+//       props: { initialData },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+
+//     return {
+//       props: {},
+//     };
+//   }
+// }
 export default User;

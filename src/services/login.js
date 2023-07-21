@@ -2,9 +2,12 @@ import axios from "axios";
 
 const userLogin = async ({ userDetails, loginUserResponse }) => {
   try {
-    const response = await axios.post(`http://localhost:8080/users/token`, {
-      userDetails,
-    });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/users/token`,
+      {
+        userDetails,
+      }
+    );
 
     console.log("response of login", response);
     if (loginUserResponse) {

@@ -47,10 +47,9 @@ const signUp = () => {
 
   console.log("userDetails", userDetails);
 
-  const userLogin = async () => {
-    const url = "http://localhost:8080/users";
+  const userLogin = () => {
     axios
-      .post(url, userDetails)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/users`, userDetails)
       .then((response) => {
         setLoading(false);
         setOpenEnterCodeDialog(true);
@@ -59,10 +58,6 @@ const signUp = () => {
       .catch((error) => {
         setLoading(false);
         console.error("Error:", error);
-        fireToasterContext.fireToasterHandler(
-          false,
-          error.response.data.message
-        );
       });
   };
 
@@ -79,7 +74,7 @@ const signUp = () => {
   };
 
   const handleConfimationCode = () => {
-    const url = `http://localhost:8080/users/verifyCode`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/verifyCode`;
     const codeVerificationData = {
       code: code,
       email: userDetails.email,
@@ -95,10 +90,10 @@ const signUp = () => {
 
       .catch((error) => {
         console.error("Error:", error);
-        fireToasterContext.fireToasterHandler(
-          false,
-          error.response.data.message
-        );
+        // fireToasterContext.fireToasterHandler(
+        //   false,
+        //   error.response.data.message
+        // );
       });
   };
 
@@ -112,26 +107,6 @@ const signUp = () => {
       </Head>
       <Topbar />
       <main className={`${styles.main}`}>
-        <div className={styles["rival-cms-container"]}>
-          <Typography
-            variant="body1"
-            component="span"
-            gutterBottom
-            className={`${styles["link"]}`}
-            style={{ color: "#2A4365" }}
-          >
-            Rival
-          </Typography>
-          <Typography
-            variant="body1"
-            component="span"
-            gutterBottom
-            className={`${styles["link"]}`}
-            style={{ color: "#63B3ED" }}
-          >
-            CMS
-          </Typography>
-        </div>
         <Container
           maxWidth="sm"
           sx={{
@@ -291,8 +266,11 @@ const signUp = () => {
                         variant="contained"
                         sx={{
                           height: "61px",
-                          backgroundColor: "#2A4365",
+                          backgroundColor: "#3ec1b9",
                           borderRadius: "5px",
+                          color: "white",
+                          textTransform: "capitalize",
+                          fontWeight: "bold",
                         }}
                       >
                         {loading ? "Loading..." : "Register"}
@@ -368,13 +346,13 @@ const signUp = () => {
                   onClick={handleConfimationCode}
                   autoFocus
                   sx={{
-                    backgroundColor: "#63B3ED",
+                    backgroundColor: "#3ec1b9",
                     color: "white",
                     width: "135px",
                     height: "42px",
                     "&:hover": {
                       boxShadow: 4,
-                      backgroundColor: "#63B3ED",
+                      backgroundColor: "#3ec1b9",
                       color: "white",
                     },
                   }}

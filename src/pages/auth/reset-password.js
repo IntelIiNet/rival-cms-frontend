@@ -33,7 +33,8 @@ const Index = () => {
   };
 
   const handleResetPassword = async () => {
-    const url = "http://localhost:8080/users/resetPassword";
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/resetPassword`;
+
     await axios
       .post(url, userDetails)
       .then((response) => {
@@ -62,26 +63,28 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <div className={styles["rival-cms-container"]}>
+        <Box>
           <Typography
             variant="body1"
             component="span"
             gutterBottom
-            className={`${styles["link"]}`}
-            style={{ color: "#2A4365" }}
+            sx={{
+              color: "#3ab9b2",
+              fontWeight: 400,
+              fontSize: "20px",
+            }}
           >
-            Rival
+            Grait
           </Typography>
           <Typography
             variant="body1"
             component="span"
             gutterBottom
-            className={`${styles["link"]}`}
-            style={{ color: "#63B3ED" }}
+            sx={{ color: "#104c62", fontWeight: 400, fontSize: "20px" }}
           >
-            CMS
+            Deals
           </Typography>
-        </div>
+        </Box>
         <Container
           maxWidth="sm"
           sx={{

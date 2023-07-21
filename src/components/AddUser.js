@@ -4,7 +4,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Typography from "@mui/material/Typography";
 import {
   Box,
   FormControl,
@@ -16,12 +15,45 @@ import {
   TextField,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import axios from "axios";
+
+const userRoles = [
+  {
+    id: 1,
+    role: "Admin",
+  },
+  {
+    id: 2,
+    role: "Reader",
+  },
+  {
+    id: 3,
+    role: "Writer",
+  },
+];
 
 function AddUser({ open, handleCloseEditDialog }) {
-  const [userRole, setUserRole] = React.useState("");
-
+  const [userDetails, setUserDetails] = React.useState({});
+  console.log("userDetails", userDetails);
   const handleChange = (event) => {
-    setUserRole(event.target.value);
+    setUserDetails({
+      ...userDetails,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleAddUser = async () => {
+    let token = localStorage.getItem("token");
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}createSubUsers`,
+      userDetails,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("response", response);
   };
   return (
     <>
@@ -61,16 +93,41 @@ function AddUser({ open, handleCloseEditDialog }) {
           >
             <Box component="form" noValidate autoComplete="off">
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     id="outlined-basic"
                     label="Name"
                     fullWidth
                     placeholder="Enter user name"
                     variant="outlined"
-                    name="userName"
+                    name="name"
+                    onChange={handleChange}
                   />
                 </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Email Address"
+                    fullWidth
+                    placeholder="Enter Email address"
+                    variant="outlined"
+                    name="email"
+                    onChange={handleChange}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Phone Number"
+                    fullWidth
+                    placeholder="Enter your Phone Number"
+                    variant="outlined"
+                    name="phone"
+                    onChange={handleChange}
+                  />
+                </Grid>
+
                 <Grid item xs={12}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
@@ -79,21 +136,36 @@ function AddUser({ open, handleCloseEditDialog }) {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={userRole}
                       label="Select User Role"
+                      name="user_role"
                       onChange={handleChange}
                     >
-                      <MenuItem>Admin</MenuItem>
-                      <MenuItem>Writer</MenuItem>
+                      {userRoles.map((option) => (
+                        <MenuItem key={option.id} value={option.role}>
+                          {option.role}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Password"
+                    fullWidth
+                    placeholder="Enter password"
+                    variant="outlined"
+                    name="password"
+                    type="password"
+                    onChange={handleChange}
+                  />
                 </Grid>
               </Grid>
             </Box>
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={() => !open}
+              onClick={() => handleAddUser()}
               autoFocus
               sx={{
                 backgroundColor: "#63B3ED",
