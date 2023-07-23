@@ -5,3 +5,27 @@
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
+
+.ql-container {
+  position: relative;
+  height: 400px; /* Set a fixed height for the editor container */
+}
+/* Define styles for the toolbar */
+.ql-toolbar.ql-snow {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+/* Define styles for the editor content area */
+.ql-container.ql-snow {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.ql-tooltip {
+  position: absolute;
+  left: 233px !important;
+  top: -5.5px !important;
+}

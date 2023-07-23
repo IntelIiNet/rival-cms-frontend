@@ -62,6 +62,12 @@ export default function User() {
     getUsersList();
   }, []);
 
+  const handleApiRes = (response) => {
+    if (response.status) {
+      getUsersList();
+    }
+  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -350,6 +356,7 @@ export default function User() {
         <AddUserDialog
           open={openAddUserDialog}
           handleCloseEditDialog={handleCloseEditDialog}
+          handleApiRes={handleApiRes}
         />
       )}
       {openEditUserDialog && (

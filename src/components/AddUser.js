@@ -33,7 +33,7 @@ const userRoles = [
   },
 ];
 
-function AddUser({ open, handleCloseEditDialog }) {
+function AddUser({ open, handleCloseEditDialog, handleApiRes }) {
   const [userDetails, setUserDetails] = React.useState({
     name: "",
     email: "",
@@ -62,20 +62,22 @@ function AddUser({ open, handleCloseEditDialog }) {
           },
         }
       );
+      console.log("response", response);
+      handleApiRes(response);
       if (response.status) {
         fireToasterContext.fireToasterHandler(
           true,
           "User created successfully"
         );
+        handleCloseEditDialog();
       }
     } catch (error) {
       fireToasterContext.fireToasterHandler(
         false,
         error.response?.data?.message
       );
+      handleCloseEditDialog();
     }
-
-    console.log("response", response);
   };
   return (
     <>

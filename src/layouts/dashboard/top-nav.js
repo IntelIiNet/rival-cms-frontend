@@ -20,17 +20,7 @@ import LockResetIcon from "@mui/icons-material/LockReset";
 import styles from "@/styles/Layout.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
-// import MainLogo from "../../../public/assets/Logo.png";
 import Logo from "../../../public/Logo.png";
-
-//  <SvgIcon
-//    sx={{
-//      mr: 1,
-//      height: "30px",
-//      width: "30px",
-//      transform: "rotate(358deg)",
-//    }}
-//  ></SvgIcon>;
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 

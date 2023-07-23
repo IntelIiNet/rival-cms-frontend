@@ -229,7 +229,7 @@ const signIn = () => {
                     }}
                     onClick={() => route.push("/auth/sign-up")}
                   >
-                    {" Don’t have & account?"}
+                    Sign up
                   </Button>
                 </Box>
               </Container>
