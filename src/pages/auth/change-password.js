@@ -75,7 +75,7 @@ const Index = () => {
             sx={{
               color: "#3ab9b2",
               fontWeight: 400,
-              fontSize: "20px",
+              fontSize: "50px",
             }}
           >
             Grait
@@ -84,7 +84,7 @@ const Index = () => {
             variant="body1"
             component="span"
             gutterBottom
-            sx={{ color: "white", fontWeight: 400, fontSize: "20px" }}
+            sx={{ color: "#2A4365", fontWeight: 400, fontSize: "50px" }}
           >
             Deals
           </Typography>

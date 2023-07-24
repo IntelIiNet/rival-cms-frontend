@@ -11,17 +11,10 @@ import {
   CardActions,
   CardContent,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
   Box,
-  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
 import ToasterContext from "@/utils/context/tosterContext";
 const writeBlog = () => {
   const modules = {
@@ -63,19 +56,18 @@ const writeBlog = () => {
     "background",
   ];
   const router = useRouter();
+  const selectedBlog = router.query;
+  console.log("selectedBlog", selectedBlog.data);
   const [textAreaData, setTextAreaData] = useState();
   const [title, setTitle] = useState("");
-  const [promptTitle, setPromptTitle] = useState("");
-  const [aiBlogDialog, setAiBlogDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [aiLoading, setAiLoading] = useState(false);
   const fireToasterContext = useContext(ToasterContext);
-  console.log("title", title);
-  console.log("textAreaData", textAreaData);
+
   // Check if blog and title exist in local storage
   useEffect(() => {
     const storedBlog = JSON.parse(localStorage.getItem("blog"));
     const storedTitle = JSON.parse(localStorage.getItem("title"));
+    console.log("title", storedTitle);
     if (storedBlog && storedTitle) {
       setTextAreaData(storedBlog);
       setTitle(storedTitle);
@@ -87,7 +79,7 @@ const writeBlog = () => {
     setTextAreaData(editorData);
   };
 
-  const handlePublishBlog = async () => {
+  const handleUpdateBlog = async () => {
     const token = localStorage.getItem("token");
     setLoading(true);
     if (textAreaData === undefined) {
@@ -104,8 +96,8 @@ const writeBlog = () => {
     };
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/blog`,
+      const response = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/blog/${selectedBlog.data}`,
         finalData,
         {
           headers: {
@@ -132,34 +124,10 @@ const writeBlog = () => {
     localStorage.setItem("title", JSON.stringify(title));
     router.push("/preview-blog");
   };
-
-  const handleAiBlog = async () => {
-    const token = localStorage.getItem("token");
-    setAiLoading(true);
-    let finalPrompt = {
-      prompt: promptTitle,
-    };
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/openai-blog`,
-        finalPrompt,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setAiLoading(false);
-      setAiBlogDialog(false);
-      let promptResponse = response.data[0].message.content;
-      let finalPromptResponse = JSON.parse(promptResponse);
-      if (finalPromptResponse) {
-        setTitle(finalPromptResponse.title);
-        setTextAreaData(finalPromptResponse.data);
-      }
-    } catch (error) {
-      console.error("Error publishing blog:", error);
-    }
+  const handleBackButton = () => {
+    router.push("/view-site");
+    localStorage.removeItem("blog");
+    localStorage.removeItem("title");
   };
 
   return (
@@ -172,41 +140,40 @@ const writeBlog = () => {
       </Head>
       <main style={{ height: "90vh" }}>
         <Container sx={{ mt: "110px" }}>
+          <Button
+            onClick={() => handleBackButton()}
+            sx={{
+              backgroundColor: "#40c1b9",
+              color: "white",
+              width: "135px",
+              height: "42px",
+              mr: 5,
+
+              "&:hover": {
+                boxShadow: 4,
+                backgroundColor: "#40c1b9",
+                color: "white",
+              },
+            }}
+          >
+            Back
+          </Button>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box>
               <Typography
                 variant="h4"
                 sx={{
-                  paddingLeft: "50px",
                   fontSize: "40px",
                   fontWeight: "bold",
                   pt: 2,
                   pb: 0,
-                  textAlign: "center",
+                  textAlign: "right",
                   mb: 1,
                   mr: "122px",
                 }}
               >
                 {textAreaData ? "Edit Blog" : "Write Blog Here"}
               </Typography>
-            </Box>
-            <Box sx={{ marginLeft: "auto" }}>
-              <Button
-                sx={{
-                  backgroundColor: "#40c1b9",
-                  color: "white",
-                  width: "135px",
-                  height: "42px",
-                  "&:hover": {
-                    boxShadow: 4,
-                    backgroundColor: "#40c1b9",
-                    color: "white",
-                  },
-                }}
-                onClick={() => setAiBlogDialog(true)}
-              >
-                Write AI Blog
-              </Button>
             </Box>
           </Box>
 
@@ -231,7 +198,7 @@ const writeBlog = () => {
                     value={textAreaData}
                     onChange={handleChange}
                     placeholder="Write Blog here..."
-                    style={{ height: "400px" }}
+                    style={{ height: "450px" }}
                   />
                 </div>
               </div>
@@ -257,7 +224,7 @@ const writeBlog = () => {
                 Preview Blog
               </Button>
               <Button
-                onClick={handlePublishBlog}
+                onClick={() => handleUpdateBlog()}
                 disabled={!textAreaData}
                 sx={{
                   backgroundColor: "#40c1b9",
@@ -276,79 +243,6 @@ const writeBlog = () => {
             </CardActions>
           </Card>
         </Container>
-        <Dialog
-          aria-labelledby="customized-dialog-title"
-          open={aiBlogDialog}
-          fullWidth
-          maxWidth="sm"
-        >
-          <DialogTitle
-            id="customized-dialog-title"
-            sx={{
-              display: "flex",
-              alignItems: "  center",
-              justifyContent: "space-between",
-              backgroundColor: "primary.main",
-              color: "white",
-              py: 1.5,
-            }}
-          >
-            Enter a prompt
-            <IconButton
-              onClick={() => setAiBlogDialog(false)}
-              sx={{
-                backgroundColor: "primary.main",
-              }}
-            >
-              <ClearIcon sx={{ color: "white" }} />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent
-            dividers
-            sx={{
-              Height: 400,
-            }}
-          >
-            <Box component="form" noValidate autoComplete="off">
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Prompt"
-                    fullWidth
-                    placeholder="Enter Prompt"
-                    variant="outlined"
-                    name="prompt"
-                    onChange={(event) => setPromptTitle(event.target.value)}
-                    InputProps={{
-                      shrink: true,
-                    }}
-                    disabled={aiLoading}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => handleAiBlog()}
-              autoFocus
-              sx={{
-                backgroundColor: "#63B3ED",
-                color: "white",
-                width: "135px",
-                height: "42px",
-                "&:hover": {
-                  boxShadow: 4,
-                  backgroundColor: "#63B3ED",
-                  color: "white",
-                },
-              }}
-            >
-              {aiLoading ? "Loading..." : " Write AI Blogs"}
-            </Button>
-          </DialogActions>
-        </Dialog>
       </main>
     </Layout>
   );

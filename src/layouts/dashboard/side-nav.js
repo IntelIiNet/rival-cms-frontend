@@ -63,7 +63,7 @@ export const SideNav = (props) => {
               color: "#2C5282",
             }}
           >
-            {proFeaturesItems.map((item) => {
+            {/* {proFeaturesItems.map((item) => {
               const active = item.path ? pathname === item.path : false;
 
               return (
@@ -77,7 +77,7 @@ export const SideNav = (props) => {
                   title={item.title}
                 />
               );
-            })}
+            })} */}
           </Stack>
         </Box>
       </Box>

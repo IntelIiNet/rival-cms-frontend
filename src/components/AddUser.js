@@ -42,7 +42,7 @@ function AddUser({ open, handleCloseEditDialog, handleApiRes }) {
     user_role: "",
   });
   const fireToasterContext = React.useContext(toasterContext);
-  console.log("userDetails", userDetails);
+
   const handleChange = (event) => {
     setUserDetails({
       ...userDetails,
@@ -62,7 +62,7 @@ function AddUser({ open, handleCloseEditDialog, handleApiRes }) {
           },
         }
       );
-      console.log("response", response);
+
       handleApiRes(response);
       if (response.status) {
         fireToasterContext.fireToasterHandler(

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
 import {
@@ -26,11 +26,14 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import styles from "@/styles/ViewSite.module.css";
 import { useRouter } from "next/router";
 import axios from "axios";
+import ToasterContext from "@/utils/context/tosterContext";
 
 const viewSite = () => {
   const router = useRouter();
   const [blogData, setBlogData] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const fireToasterContext = useContext(ToasterContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,6 +44,7 @@ const viewSite = () => {
   };
 
   const getBlogs = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(
@@ -53,6 +57,7 @@ const viewSite = () => {
       );
 
       setBlogData(response.data);
+      setLoading(false);
       console.log("publishing blog response", response.data);
     } catch (error) {
       console.error("Error publishing blog:", error);
@@ -63,23 +68,43 @@ const viewSite = () => {
     getBlogs();
   }, []);
 
-  const handleDeletBlog = (blog) => {
+  const handleEditBlog = (blog) => {
+    localStorage.setItem("blog", JSON.stringify(blog.data.name));
+    localStorage.setItem("title", JSON.stringify(blog.data.title));
+    router.push({
+      pathname: "/edit-blog",
+      query: { data: JSON.stringify(blog.id) },
+    });
+  };
+
+  const handleDeletBlog = async (blog) => {
     const token = localStorage.getItem("token");
     try {
-      const response = axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/blog?id=${blog.id}`,
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/blog/${blog.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      setBlogData(response.data);
-      console.log("delete blog response", response.data);
+      console.log("deelte response", response);
+      getBlogs();
+      fireToasterContext.fireToasterHandler(true, "Blog Deleted Successfully");
     } catch (error) {
+      fireToasterContext.fireToasterHandler(
+        false,
+        error?.response?.data?.message
+      );
       console.error("Error delete blog:", error);
     }
+  };
+
+  const handleRowClick = (blog) => {
+    console.log("data of row", blog);
+    localStorage.setItem("blog", JSON.stringify(blog.data.name));
+    localStorage.setItem("title", JSON.stringify(blog.data.title));
+    router.push("/view-blog");
   };
 
   function formatDateToDisplay(timestamp) {
@@ -106,6 +131,7 @@ const viewSite = () => {
     return formattedDate;
   }
 
+  console.log("blog post", blogData);
   return (
     <Layout>
       <Head>
@@ -181,16 +207,36 @@ const viewSite = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {blogData &&
+                {loading ? (
+                  <>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Loading...</TableCell>
+                    <TableCell></TableCell>
+                  </>
+                ) : (
+                  blogData &&
                   blogData.map((blog) => (
                     <>
                       <TableRow>
                         <TableCell sx={{ border: "none" }}></TableCell>
                       </TableRow>
-                      <TableRow sx={{ backgroundColor: "#F7FAFC" }}>
-                        <TableCell sx={{ my: 2, height: 100, border: "none" }}>
+                      <TableRow
+                        sx={{
+                          backgroundColor: "#F7FAFC",
+                        }}
+                      >
+                        <TableCell
+                          sx={{
+                            my: 2,
+                            height: 100,
+                            border: "none",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleRowClick(blog)}
+                        >
                           <Typography className={styles.card_heading_typo}>
-                            Design: A Survival Guide for Beginners
+                            {blog.data.title}
                           </Typography>
                           <Typography className={styles.card_sub_heading_typo}>
                             {formatDateToDisplay(blog.createdAt)}
@@ -306,11 +352,7 @@ const viewSite = () => {
                                 vertical: "bottom",
                               }}
                             >
-                              <MenuItem
-                                onClick={() =>
-                                  router.push("/auth/change-password")
-                                }
-                              >
+                              <MenuItem onClick={() => handleEditBlog(blog)}>
                                 <ListItemIcon>
                                   <ModeEditOutlineOutlinedIcon fontSize="small" />
                                 </ListItemIcon>
@@ -327,7 +369,8 @@ const viewSite = () => {
                         </TableCell>
                       </TableRow>
                     </>
-                  ))}
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>

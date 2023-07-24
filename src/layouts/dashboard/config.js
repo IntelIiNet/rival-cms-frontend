@@ -270,123 +270,123 @@ export const items = [
   // },
 ];
 
-export const proFeaturesItems = [
-  {
-    title: "Themes",
-    path: "/themes",
-    icon: (
-      <SvgIcon fontSize="small">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M2 3H8C9.06087 3 10.0783 3.42143 10.8284 4.17157C11.5786 4.92172 12 5.93913 12 7V21C12 20.2044 11.6839 19.4413 11.1213 18.8787C10.5587 18.3161 9.79565 18 9 18H2V3Z"
-            stroke="#2C5282"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M22 3H16C14.9391 3 13.9217 3.42143 13.1716 4.17157C12.4214 4.92172 12 5.93913 12 7V21C12 20.2044 12.3161 19.4413 12.8787 18.8787C13.4413 18.3161 14.2044 18 15 18H22V3Z"
-            stroke="#2C5282"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Plugins",
-    path: "/plugins",
-    icon: (
-      <SvgIcon fontSize="small">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M21 16V7.99999C20.9996 7.64927 20.9071 7.3048 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.26999L13 2.26999C12.696 2.09446 12.3511 2.00204 12 2.00204C11.6489 2.00204 11.304 2.09446 11 2.26999L4 6.26999C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.3048 3.00036 7.64927 3 7.99999V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
-            stroke="#2C5282"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M3.27002 6.95999L12 12.01L20.73 6.95999"
-            stroke="#2C5282"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M12 22.08V12"
-            stroke="#2C5282"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </SvgIcon>
-    ),
-  },
-  // {
-  //   title: "Upgrade plans",
-  //   path: "/upgrade-plans",
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <svg
-  //         xmlns="http://www.w3.org/2000/svg"
-  //         width="24"
-  //         height="24"
-  //         viewBox="0 0 24 24"
-  //         fill="none"
-  //       >
-  //         <path
-  //           d="M18 8H19C20.0609 8 21.0783 8.42143 21.8284 9.17157C22.5786 9.92172 23 10.9391 23 12C23 13.0609 22.5786 14.0783 21.8284 14.8284C21.0783 15.5786 20.0609 16 19 16H18"
-  //           stroke="#2C5282"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //         />
-  //         <path
-  //           d="M2 8H18V17C18 18.0609 17.5786 19.0783 16.8284 19.8284C16.0783 20.5786 15.0609 21 14 21H6C4.93913 21 3.92172 20.5786 3.17157 19.8284C2.42143 19.0783 2 18.0609 2 17V8Z"
-  //           stroke="#2C5282"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //         />
-  //         <path
-  //           d="M6 1V4"
-  //           stroke="#2C5282"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //         />
-  //         <path
-  //           d="M10 1V4"
-  //           stroke="#2C5282"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //         />
-  //         <path
-  //           d="M14 1V4"
-  //           stroke="#2C5282"
-  //           stroke-width="2"
-  //           stroke-linecap="round"
-  //           stroke-linejoin="round"
-  //         />
-  //       </svg>
-  //     </SvgIcon>
-  //   ),
-  // },
-];
+// export const proFeaturesItems = [
+//   {
+//     title: "Themes",
+//     path: "/themes",
+//     icon: (
+//       <SvgIcon fontSize="small">
+//         <svg
+//           xmlns="http://www.w3.org/2000/svg"
+//           width="24"
+//           height="24"
+//           viewBox="0 0 24 24"
+//           fill="none"
+//         >
+//           <path
+//             d="M2 3H8C9.06087 3 10.0783 3.42143 10.8284 4.17157C11.5786 4.92172 12 5.93913 12 7V21C12 20.2044 11.6839 19.4413 11.1213 18.8787C10.5587 18.3161 9.79565 18 9 18H2V3Z"
+//             stroke="#2C5282"
+//             stroke-width="2"
+//             stroke-linecap="round"
+//             stroke-linejoin="round"
+//           />
+//           <path
+//             d="M22 3H16C14.9391 3 13.9217 3.42143 13.1716 4.17157C12.4214 4.92172 12 5.93913 12 7V21C12 20.2044 12.3161 19.4413 12.8787 18.8787C13.4413 18.3161 14.2044 18 15 18H22V3Z"
+//             stroke="#2C5282"
+//             stroke-width="2"
+//             stroke-linecap="round"
+//             stroke-linejoin="round"
+//           />
+//         </svg>
+//       </SvgIcon>
+//     ),
+//   },
+//   {
+//     title: "Plugins",
+//     path: "/plugins",
+//     icon: (
+//       <SvgIcon fontSize="small">
+//         <svg
+//           xmlns="http://www.w3.org/2000/svg"
+//           width="24"
+//           height="24"
+//           viewBox="0 0 24 24"
+//           fill="none"
+//         >
+//           <path
+//             d="M21 16V7.99999C20.9996 7.64927 20.9071 7.3048 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.26999L13 2.26999C12.696 2.09446 12.3511 2.00204 12 2.00204C11.6489 2.00204 11.304 2.09446 11 2.26999L4 6.26999C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.3048 3.00036 7.64927 3 7.99999V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z"
+//             stroke="#2C5282"
+//             stroke-width="2"
+//             stroke-linecap="round"
+//             stroke-linejoin="round"
+//           />
+//           <path
+//             d="M3.27002 6.95999L12 12.01L20.73 6.95999"
+//             stroke="#2C5282"
+//             stroke-width="2"
+//             stroke-linecap="round"
+//             stroke-linejoin="round"
+//           />
+//           <path
+//             d="M12 22.08V12"
+//             stroke="#2C5282"
+//             stroke-width="2"
+//             stroke-linecap="round"
+//             stroke-linejoin="round"
+//           />
+//         </svg>
+//       </SvgIcon>
+//     ),
+//   },
+//   // {
+//   //   title: "Upgrade plans",
+//   //   path: "/upgrade-plans",
+//   //   icon: (
+//   //     <SvgIcon fontSize="small">
+//   //       <svg
+//   //         xmlns="http://www.w3.org/2000/svg"
+//   //         width="24"
+//   //         height="24"
+//   //         viewBox="0 0 24 24"
+//   //         fill="none"
+//   //       >
+//   //         <path
+//   //           d="M18 8H19C20.0609 8 21.0783 8.42143 21.8284 9.17157C22.5786 9.92172 23 10.9391 23 12C23 13.0609 22.5786 14.0783 21.8284 14.8284C21.0783 15.5786 20.0609 16 19 16H18"
+//   //           stroke="#2C5282"
+//   //           stroke-width="2"
+//   //           stroke-linecap="round"
+//   //           stroke-linejoin="round"
+//   //         />
+//   //         <path
+//   //           d="M2 8H18V17C18 18.0609 17.5786 19.0783 16.8284 19.8284C16.0783 20.5786 15.0609 21 14 21H6C4.93913 21 3.92172 20.5786 3.17157 19.8284C2.42143 19.0783 2 18.0609 2 17V8Z"
+//   //           stroke="#2C5282"
+//   //           stroke-width="2"
+//   //           stroke-linecap="round"
+//   //           stroke-linejoin="round"
+//   //         />
+//   //         <path
+//   //           d="M6 1V4"
+//   //           stroke="#2C5282"
+//   //           stroke-width="2"
+//   //           stroke-linecap="round"
+//   //           stroke-linejoin="round"
+//   //         />
+//   //         <path
+//   //           d="M10 1V4"
+//   //           stroke="#2C5282"
+//   //           stroke-width="2"
+//   //           stroke-linecap="round"
+//   //           stroke-linejoin="round"
+//   //         />
+//   //         <path
+//   //           d="M14 1V4"
+//   //           stroke="#2C5282"
+//   //           stroke-width="2"
+//   //           stroke-linecap="round"
+//   //           stroke-linejoin="round"
+//   //         />
+//   //       </svg>
+//   //     </SvgIcon>
+//   //   ),
+//   // },
+// ];

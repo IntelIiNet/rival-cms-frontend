@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Layout } from "../layouts/dashboard/layout";
 import Head from "next/head";
 import axios from "axios";
@@ -32,33 +32,38 @@ import {
 import { userHeading, tableLoaderBox } from "./muiUserStyle";
 import AddUserDialog from "../components/AddUser";
 import EditUserDialog from "../components/EditUserDialog";
+import ToasterContext from "@/utils/context/tosterContext";
 
 export default function User() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState();
   const [searchResult, setSearchResult] = useState("");
+  const fireToasterContext = useContext(ToasterContext);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
   const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
 
-  useEffect(() => {
+  console.log("selectedUser", selectedUser);
+
+  const getUsersList = async () => {
     const token = localStorage.getItem("token");
-    const getUsersList = async () => {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/users`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setRows(response.data);
-      setLoading(false);
-      console.log("response", response);
-    };
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setRows(response.data);
+    setLoading(false);
+    console.log("response", response);
+  };
+
+  useEffect(() => {
     getUsersList();
   }, []);
 
@@ -91,8 +96,31 @@ export default function User() {
     setSelectedUser(userProfile);
   };
 
-  const handleDeleteSelectedUser = () => {
+  const handleDeleteSelectedUser = async () => {
     console.log("delete selected user");
+    setLoading(true);
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${selectedUser.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("deelte response", response);
+      setLoading(false);
+      getUsersList();
+      setOpenDeleteDialog(false);
+      fireToasterContext.fireToasterHandler(true, response.data);
+    } catch (error) {
+      fireToasterContext.fireToasterHandler(
+        false,
+        error?.response?.data?.message
+      );
+      console.error("Error delete blog:", error);
+    }
   };
 
   const handleSearch = (event) => {
@@ -364,6 +392,7 @@ export default function User() {
           open={openEditUserDialog}
           user={selectedUser}
           handleCloseEditDialog={handleCloseEditDialog}
+          handleApiRes={handleApiRes}
         />
       )}
       {openDeleteDialog && (
@@ -388,7 +417,7 @@ export default function User() {
               sx={{ fontFamily: "Poppins", fontSize: "14px" }}
             >
               This action cannot be undone. Do you want to perform this action
-              <b>&quot;{selectedUser.title}&quot;</b> ?
+              <b>&quot;{selectedUser.name}&quot;</b> ?
             </Typography>
           </DialogContent>
           <DialogActions>
@@ -428,8 +457,7 @@ export default function User() {
               }
               onClick={handleDeleteSelectedUser}
             >
-              Delete User Profile
-              {loading ? "Loading..." : ""}
+              {loading ? "Loading..." : "Delete User Profile"}
             </Button>
           </DialogActions>
         </Dialog>

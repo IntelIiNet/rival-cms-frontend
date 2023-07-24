@@ -19,9 +19,11 @@ import { useRouter } from "next/router";
 import toasterContext from "../../utils/context/tosterContext";
 import axios from "axios";
 import Link from "next/link";
+import { TrendingUpOutlined } from "@mui/icons-material";
 const signIn = () => {
   const route = useRouter();
   const [userDetails, setUserDetails] = useState({});
+  const [loading, setLoading] = useState(false);
   const fireToasterContext = useContext(toasterContext);
 
   const handleChange = (evnet) => {
@@ -31,8 +33,8 @@ const signIn = () => {
     });
   };
 
-  console.log("userDetails", userDetails);
   const userLogin = async () => {
+    setLoading(true);
     const url = `${process.env.NEXT_PUBLIC_API_URL}/users/token`;
 
     await axios
@@ -45,7 +47,7 @@ const signIn = () => {
 
         // Set the token as an HttpOnly cookie using document.cookie
         document.cookie = `token=${token}; path=/`;
-
+        setLoading(false);
         //  fireToasterContext.fireToasterHandler(true, `User is ${response.data}`);
         route.push("/view-site");
       })
@@ -214,7 +216,7 @@ const signIn = () => {
                           textTransform: "capitalize",
                         }}
                       >
-                        Sign in
+                        {loading ? "Loading..." : "  Sign in"}
                       </Button>
                     </Grid>
                   </Grid>

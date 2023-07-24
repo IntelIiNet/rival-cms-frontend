@@ -40,6 +40,7 @@ export const TopNav = (props) => {
 
   const handleLogout = () => {
     router.push("/auth/sign-in");
+    localStorage.clear();
   };
 
   return (
