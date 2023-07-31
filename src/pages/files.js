@@ -41,6 +41,13 @@ const Files = () => {
   };
 
   useEffect(() => {
+    const resposne = axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/image-upload`
+    );
+    console.log("resposnse of image ");
+  }, []);
+
+  useEffect(() => {
     const url = localStorage.getItem("url");
     setImageUrl(url);
     if (imageUrl === undefined) {

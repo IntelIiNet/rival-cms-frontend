@@ -1,9 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@font-face {
+  font-family: "verdana";
+  src: local("verdana"),
+    url(../../public/assets/fonts/verdana.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Futura";
+  src: local("Futura"),
+    url(../../public/assets/fonts/FuturaPTLight.otf) format("truetype");
+}
+@font-face {
+  font-family: "HeroNew";
+  src: local("HeroNew"),
+    url(../../public/assets/fonts/HeroNew.otf) format("truetype");
+}
 * > * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: "Roboto", sans-serif;
+}
+
+/* Set the font-family for the editor content */
+.ql-editor {
+  font-family: "Poppins", sans-serif;
 }
 
 .ql-container {

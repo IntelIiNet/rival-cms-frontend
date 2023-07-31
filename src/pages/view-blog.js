@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 const PreviewBlog = () => {
   const router = useRouter();
   const selectedBlog = router.query;
-  console.log("preivw blod", selectedBlog.data);
   const [getBlog, setBlog] = useState();
   const [getTitle, setTitle] = useState();
 
