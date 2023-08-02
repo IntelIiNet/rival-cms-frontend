@@ -19,6 +19,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
@@ -37,6 +38,7 @@ const MyComponent = () => {
   const [loading, setLoading] = useState(false);
   const [aiBlogDialog, setAiBlogDialog] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
+  const [draftLoading, setDraftLoading] = useState(false);
   const [title, setTitle] = useState("");
 
   //   // Check if blog and title exist in local storage
@@ -59,39 +61,78 @@ const MyComponent = () => {
     // Handle the editor content here
     setTextAreaData(content);
   };
+  const handleSaveAsADraftBlog = (status) => {
+    handlePublishBlog(status);
+  };
 
-  const handlePublishBlog = async () => {
+  const handlePublishBlog = async (status) => {
     const token = localStorage.getItem("token");
-    setLoading(true);
+    if (status === "Draft") {
+      setDraftLoading(true);
+    } else {
+      setLoading(true);
+    }
+
+    // Create a DOM parser to parse your HTML content
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(textAreaData, "text/html");
+
+    // Get all the image elements
+    const images = doc.querySelectorAll("img");
+    for (let img of images) {
+      // Only process data URLs
+      if (img.src.startsWith("data:")) {
+        const blob = dataURLToBlob(img.src);
+        const formData = new FormData();
+        formData.append("file", blob);
+        // Assuming your server has an /upload endpoint that handles file upload
+        // and responds with the URL of the uploaded file
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/image-upload/upload`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("response of image", res);
+        // Replace the data URL with the actual URL
+        img.src = res.data.url;
+      }
+    }
+
+    // Serialize back to HTML
+    const newTextAreaData = doc.body.innerHTML;
 
     let finalData = {
       data: {
-        name: textAreaData,
+        name: newTextAreaData,
         title: title,
       },
-      status: "Published",
+      status: status,
     };
 
-    try {
-      const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/blog/${selectedBlog.blogId}`,
-        finalData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setLoading(false);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/blog`,
+      finalData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setLoading(false);
+    fireToasterContext.fireToasterHandler(
+      true,
+      status === "Darft" ? "Saved as a Draft" : "Blog Created Successfully"
+    );
+    router.push("/view-site");
+    localStorage.removeItem("title");
+    localStorage.removeItem("blog");
 
-      console.log("response", response);
-      fireToasterContext.fireToasterHandler(true, "Blog Created Successfully");
-      router.push("/view-site");
-      localStorage.removeItem("title");
-      localStorage.removeItem("blog");
-    } catch (error) {
-      fireToasterContext.fireToasterHandler(false, "Something went wrong");
-    }
+    console.log("publishing blog response", response.data);
   };
 
   return (
@@ -208,7 +249,7 @@ const MyComponent = () => {
           >
             <Button
               onClick={() => handlePublishBlog("Publish")}
-              disabled={!textAreaData}
+              disabled={!textAreaData || !title}
               sx={{
                 backgroundColor: "#40c1b9",
                 color: "white",
@@ -223,82 +264,33 @@ const MyComponent = () => {
             >
               {loading ? "Loading..." : "Publish"}
             </Button>
-          </CardActions>
-        </Card>
-        {/* ai dialog  */}
-        <Dialog
-          aria-labelledby="customized-dialog-title"
-          open={aiBlogDialog}
-          fullWidth
-          maxWidth="sm"
-        >
-          <DialogTitle
-            id="customized-dialog-title"
-            sx={{
-              display: "flex",
-              alignItems: "  center",
-              justifyContent: "space-between",
-              backgroundColor: "primary.main",
-              color: "white",
-              py: 1.5,
-            }}
-          >
-            Enter a prompt
-            <IconButton
-              onClick={() => setAiBlogDialog(false)}
+            <Typography
               sx={{
-                backgroundColor: "primary.main",
+                mx: 1,
+                ml: 2,
               }}
             >
-              <ClearIcon sx={{ color: "white" }} />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent
-            dividers
-            sx={{
-              Height: 400,
-            }}
-          >
-            <Box component="form" noValidate autoComplete="off">
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Prompt"
-                    fullWidth
-                    placeholder="Enter Prompt"
-                    variant="outlined"
-                    name="prompt"
-                    onChange={(event) => setPromptTitle(event.target.value)}
-                    InputProps={{
-                      shrink: true,
-                    }}
-                    disabled={aiLoading}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </DialogContent>
-          <DialogActions>
+              OR
+            </Typography>
             <Button
-              onClick={() => handleAiBlog()}
-              autoFocus
+              onClick={() => handleSaveAsADraftBlog("Draft")}
+              disabled={!textAreaData}
               sx={{
-                backgroundColor: "#63B3ED",
+                backgroundColor: "#40c1b9",
                 color: "white",
-                width: "135px",
+                width: "155px",
                 height: "42px",
                 "&:hover": {
                   boxShadow: 4,
-                  backgroundColor: "#63B3ED",
+                  backgroundColor: "#40c1b9",
                   color: "white",
                 },
               }}
             >
-              {aiLoading ? "Loading..." : " Write AI Blogs"}
+              {draftLoading ? "Loading..." : "Save as a Draft"}
             </Button>
-          </DialogActions>
-        </Dialog>
+          </CardActions>
+        </Card>
       </Container>
     </Layout>
   );

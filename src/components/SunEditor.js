@@ -149,20 +149,12 @@ const MyComponent = () => {
       let promptResponse = response?.data[0]?.message?.content;
 
       localStorage.setItem("promptResponse", promptResponse);
-      // Here's the fix:
-      // let cleanedResponse = promptResponse.replace(/\\n/g, "\n");
-      // let finalResponse = JSON.parse(cleanedResponse);
-
-      // let formattedText = finalResponse.data.replace(/\\n/g, "\n");
-
-      // setPromptTitle(finalResponse.title);
-      // setTextAreaData(formattedText);
 
       let cleanedResponse = promptResponse.replace(/[\n\r\t]/g, "");
       let finalResponse = JSON.parse(cleanedResponse);
       console.log("finalResponse", finalResponse);
 
-      let formattedText = finalResponse.data.replace(/\n/g, "<br>");
+      let formattedText = finalResponse.data.replace(/\/\/n/g, "<br/>");
 
       setTitle(finalResponse.title);
       setTextAreaData(formattedText);

@@ -36,6 +36,7 @@ const viewSite = () => {
   const [selectedBlog, setSelectedBlog] = useState();
   const fireToasterContext = useContext(ToasterContext);
   const [searchResult, setSearchResult] = useState("");
+
   const getBlogs = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
