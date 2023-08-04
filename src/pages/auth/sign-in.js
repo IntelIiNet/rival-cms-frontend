@@ -8,6 +8,10 @@ import {
   Card,
   CardContent,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Grid,
   SvgIcon,
   TextField,
@@ -19,11 +23,12 @@ import { useRouter } from "next/router";
 import toasterContext from "../../utils/context/tosterContext";
 import axios from "axios";
 import Link from "next/link";
-import { TrendingUpOutlined } from "@mui/icons-material";
+
 const signIn = () => {
   const route = useRouter();
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const fireToasterContext = useContext(toasterContext);
 
   const handleChange = (evnet) => {
@@ -31,6 +36,36 @@ const signIn = () => {
       ...userDetails,
       [event.target.name]: event.target.value,
     });
+  };
+
+  console.log("userDetails", userDetails);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleVerifyAccount = () => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/users/verifyCode`;
+    const codeVerificationData = {
+      code: userDetails.code,
+      email: userDetails.email,
+    };
+    axios
+      .post(url, codeVerificationData)
+      .then((response) => {
+        console.log("Response of code varificatiion:", response);
+        fireToasterContext.fireToasterHandler(true, `Email is Verified`);
+        localStorage.setItem("loggedInUser", JSON.stringify(response));
+        setOpenDialog(false);
+      })
+
+      .catch((error) => {
+        console.error("Error:", error);
+        fireToasterContext.fireToasterHandler(
+          false,
+          error.response.data.message
+        );
+      });
   };
 
   const userLogin = async () => {
@@ -42,6 +77,10 @@ const signIn = () => {
       .then((response) => {
         console.log("Response of code login:", response);
         localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem(
+          "user_permission",
+          JSON.stringify(response.data.user)
+        );
 
         const token = response.data.access_token;
 
@@ -130,6 +169,15 @@ const signIn = () => {
                           <Typography className={`${styles["email-address"]}`}>
                             Email Address
                           </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            ml: "145px",
+                          }}
+                        >
+                          <Button onClick={handleOpenDialog}>
+                            Verfiy your email
+                          </Button>
                         </Box>
                       </Box>
                       <TextField
@@ -238,6 +286,95 @@ const signIn = () => {
             </CardContent>
           </Card>
         </Container>
+
+        {openDialog && (
+          <Dialog
+            open={openDialog}
+            onClose={() => setOpenDialog(false)}
+            fullWidth
+          >
+            <DialogTitle
+              sx={{
+                backgroundColor: "#2C5282",
+                color: "white",
+                fontFamily: "Poppins-semibold",
+                fontSize: "16px",
+              }}
+            >
+              Code Verification
+            </DialogTitle>
+            <DialogContent dividers>
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                fullWidth
+                placeholder="Enter your email address"
+                variant="outlined"
+                name="email"
+                type="email"
+                sx={{ mb: 2 }}
+                onChange={(event) => handleChange(event)}
+                InputProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Confirmation Code"
+                fullWidth
+                placeholder="Enter Code"
+                variant="outlined"
+                name="code"
+                type="number"
+                onChange={(event) => handleChange(event)}
+                InputProps={{
+                  shrink: true,
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button type="submit" onClick={() => setOpenDialog(false)}>
+                Cancel
+              </Button>
+              <Button
+                disabled={!userDetails.code || !userDetails.email}
+                type="submit"
+                sx={
+                  loading
+                    ? {
+                        color: "white",
+                        fontSize: "15px",
+                        background: "#979797",
+                        borderRadius: "10px",
+                        backgroundColor: "secondary.main",
+                        "&:hover": { backgroundColor: "#979797" },
+                        "&:disabled": {
+                          backgroundColor: "#979797",
+                        },
+                      }
+                    : {
+                        color: "white",
+                        fontSize: "15px",
+                        backgroundColor: "primary.main",
+                        borderRadius: "10px",
+
+                        textTransform: "capitalize",
+                        "&:hover": {
+                          backgroundColor: "primary.main",
+                          boxShadow: 3,
+                        },
+                        "&:disabled": {
+                          backgroundColor: "#979797",
+                        },
+                      }
+                }
+                onClick={handleVerifyAccount}
+              >
+                {loading ? "Loading..." : "Verify Account"}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
       </main>
     </>
   );

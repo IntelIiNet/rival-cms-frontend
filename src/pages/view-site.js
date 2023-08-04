@@ -18,6 +18,10 @@ import {
   MenuItem,
   Menu,
   InputBase,
+  DialogActions,
+  DialogContent,
+  Dialog,
+  DialogTitle,
 } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -36,6 +40,9 @@ const viewSite = () => {
   const [selectedBlog, setSelectedBlog] = useState();
   const fireToasterContext = useContext(ToasterContext);
   const [searchResult, setSearchResult] = useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  const [permission, setPermission] = useState({});
 
   const getBlogs = async () => {
     setLoading(true);
@@ -59,6 +66,8 @@ const viewSite = () => {
   };
 
   useEffect(() => {
+    const permission = JSON.parse(localStorage.getItem("user_permission"));
+    setPermission(permission);
     getBlogs();
   }, []);
 
@@ -119,17 +128,23 @@ const viewSite = () => {
     router.push("/view-blog");
   };
 
-  const handleDeletBlog = async (blog) => {
+  const handleDeletBlog = (blog) => {
+    setOpenDeleteDialog(true);
+    setSelectedBlog(blog);
+  };
+
+  const handleOpenDeleteDialog = async () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/blog/${blog.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/blog/${selectedBlog.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      setOpenDeleteDialog(false);
       console.log("deelte response", response);
       getBlogs();
       fireToasterContext.fireToasterHandler(true, "Blog Deleted Successfully");
@@ -138,6 +153,7 @@ const viewSite = () => {
         false,
         error?.response?.data?.message
       );
+      setOpenDeleteDialog(false);
       console.error("Error delete blog:", error);
     }
   };
@@ -209,7 +225,18 @@ const viewSite = () => {
                     <Typography className={styles.typo}>Title</Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography className={styles.typo}>Status</Typography>
+                    <Typography
+                      sx={{
+                        visibility:
+                          permission.user_role === "Reader" ||
+                          permission.user_role === "Writer"
+                            ? "hidden"
+                            : "visible",
+                      }}
+                      className={styles.typo}
+                    >
+                      Status
+                    </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography className={styles.typo}>Stats</Typography>
@@ -222,6 +249,10 @@ const viewSite = () => {
                       sx={{
                         backgroundColor: "#40c1b9",
                         color: "white",
+                        visibility:
+                          permission.user_role === "Reader"
+                            ? "hidden"
+                            : "visible",
                       }}
                       startIcon={
                         <SvgIcon fontSize="small">
@@ -321,6 +352,11 @@ const viewSite = () => {
                                 borderRadius: "10px",
                                 width: 100,
                                 textTransform: "capitalize",
+                                visibility:
+                                  permission.user_role === "Reader" ||
+                                  permission.user_role === "Writer"
+                                    ? "hidden"
+                                    : "visible",
                               }}
                             >
                               <Typography>{blog?.status}</Typography>
@@ -369,7 +405,15 @@ const viewSite = () => {
                             </Box>
                           </TableCell>
                           <TableCell>
-                            <Box sx={{ display: "flex" }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                visibility:
+                                  permission.user_role === "Reader"
+                                    ? "hidden"
+                                    : "visible",
+                              }}
+                            >
                               <IconButton
                                 onClick={() => handleEditBlog(blog)}
                                 sx={{
@@ -390,6 +434,11 @@ const viewSite = () => {
                                 sx={{
                                   backgroundColor: "#8B0000",
                                   ml: 2,
+                                  visibility:
+                                    permission.user_role === "Writer" ||
+                                    permission.user_role === "Reader"
+                                      ? "hidden"
+                                      : "visible",
                                   "&.hover": {
                                     backgroundColor: "#8B0000",
                                     boxShadow: 2,
@@ -436,6 +485,74 @@ const viewSite = () => {
             <Typography>Save as a draft</Typography>
           </MenuItem>
         </Menu>
+
+        {openDeleteDialog && (
+          <Dialog
+            open={openDeleteDialog}
+            onClose={() => setOpenDeleteDialog(false)}
+            fullWidth
+          >
+            <DialogTitle
+              sx={{
+                backgroundColor: "#2C5282",
+                color: "white",
+                fontFamily: "Poppins-semibold",
+                fontSize: "16px",
+              }}
+            >
+              Delete Blog
+            </DialogTitle>
+            <DialogContent dividers>
+              <Typography
+                variant="caption"
+                sx={{ fontFamily: "Poppins", fontSize: "14px" }}
+              >
+                This action cannot be undone. Do you want to perform this action
+                ?
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button type="submit" onClick={() => setOpenDeleteDialog(false)}>
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                sx={
+                  loading
+                    ? {
+                        color: "white",
+                        fontSize: "15px",
+                        background: "#979797",
+                        borderRadius: "10px",
+                        backgroundColor: "secondary.main",
+                        "&:hover": { backgroundColor: "#979797" },
+                        "&:disabled": {
+                          backgroundColor: "#979797",
+                        },
+                      }
+                    : {
+                        color: "white",
+                        fontSize: "15px",
+                        backgroundColor: "primary.main",
+                        borderRadius: "10px",
+
+                        textTransform: "capitalize",
+                        "&:hover": {
+                          backgroundColor: "primary.main",
+                          boxShadow: 3,
+                        },
+                        "&:disabled": {
+                          backgroundColor: "#979797",
+                        },
+                      }
+                }
+                onClick={handleOpenDeleteDialog}
+              >
+                {loading ? "Loading..." : "Delete Blog"}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
       </main>
     </Layout>
   );

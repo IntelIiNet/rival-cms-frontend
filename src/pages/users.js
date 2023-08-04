@@ -45,6 +45,7 @@ export default function User() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
   const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
+  const [permission, setPermission] = useState({});
 
   console.log("selectedUser", selectedUser);
 
@@ -64,6 +65,8 @@ export default function User() {
   };
 
   useEffect(() => {
+    const permission = JSON.parse(localStorage.getItem("user_permission"));
+    setPermission(permission);
     getUsersList();
   }, []);
 
@@ -138,7 +141,18 @@ export default function User() {
       <main>
         <Container sx={{ mt: 10 }}>
           <Grid spacing={2} container>
-            <Grid item lg={10} md={8} sm={8} xs={12}>
+            <Grid
+              item
+              lg={
+                permission.user_role === "Reader" ||
+                permission.user_role === "Writer"
+                  ? 12
+                  : 10
+              }
+              md={8}
+              sm={8}
+              xs={12}
+            >
               <InputBase
                 onChange={(event) => handleSearch(event)}
                 sx={{
@@ -159,7 +173,20 @@ export default function User() {
                 }
               />
             </Grid>
-            <Grid item lg={2} md={4} sm={4} xs={12}>
+            <Grid
+              item
+              lg={2}
+              md={4}
+              sm={4}
+              xs={12}
+              sx={{
+                display:
+                  permission.user_role === "Reader" ||
+                  permission.user_role === "Writer"
+                    ? "none"
+                    : null,
+              }}
+            >
               <Button
                 onClick={() => setOpenAddUserDialog(true)}
                 disableRipple
@@ -217,7 +244,7 @@ export default function User() {
                           sx={userHeading}
                           variant="userTableHeadingBold"
                         >
-                          Status
+                          Verified User
                         </Typography>
                       </TableCell>
                       <TableCell sx={{ backgroundColor: "#2C5282" }}>
@@ -238,7 +265,14 @@ export default function User() {
                       </TableCell>
                       <TableCell sx={{ backgroundColor: "#2C5282" }}>
                         <Typography
-                          sx={userHeading}
+                          sx={{
+                            ...userHeading,
+                            display:
+                              permission.user_role === "Reader" ||
+                              permission.user_role === "Writer"
+                                ? "none"
+                                : null,
+                          }}
                           variant="userTableHeadingBold"
                         >
                           Action
@@ -317,9 +351,13 @@ export default function User() {
                             </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell>{row.is_verified.toString()}</TableCell>
+                        <TableCell>
+                          {row.is_verified.toString() === "true" ? "Yes" : "No"}
+                        </TableCell>
 
-                        <TableCell>{row.phone}</TableCell>
+                        <TableCell>
+                          {row.phone === null ? "N/A" : row.phone}
+                        </TableCell>
                         <TableCell>{row.email}</TableCell>
 
                         <TableCell>
@@ -329,6 +367,11 @@ export default function User() {
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "10px",
+                                visibility:
+                                  permission.user_role === "Reader" ||
+                                  permission.user_role === "Writer"
+                                    ? "hidden"
+                                    : "visible",
                               }}
                             >
                               <IconButton

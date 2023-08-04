@@ -88,10 +88,6 @@ const signUp = () => {
 
       .catch((error) => {
         console.error("Error:", error);
-        // fireToasterContext.fireToasterHandler(
-        //   false,
-        //   error.response.data.message
-        // );
       });
   };
 

@@ -40,9 +40,12 @@ const MyComponent = () => {
   const [aiLoading, setAiLoading] = useState(false);
   const [draftLoading, setDraftLoading] = useState(false);
   const [title, setTitle] = useState("");
+  const [permission, setPermission] = useState({});
 
   //   // Check if blog and title exist in local storage
   useEffect(() => {
+    const permission = JSON.parse(localStorage.getItem("user_permission"));
+    setPermission(permission);
     const storedBlog = JSON.parse(localStorage.getItem("blog"));
     const storedTitle = JSON.parse(localStorage.getItem("title"));
     if (storedBlog && storedTitle) {
@@ -251,6 +254,11 @@ const MyComponent = () => {
               onClick={() => handlePublishBlog("Publish")}
               disabled={!textAreaData || !title}
               sx={{
+                visibility:
+                  permission.user_role === "Reader" ||
+                  permission.user_role === "Writer"
+                    ? "hidden"
+                    : "visible",
                 backgroundColor: "#40c1b9",
                 color: "white",
                 width: "135px",
@@ -266,6 +274,11 @@ const MyComponent = () => {
             </Button>
             <Typography
               sx={{
+                visibility:
+                  permission.user_role === "Reader" ||
+                  permission.user_role === "Writer"
+                    ? "hidden"
+                    : "visible",
                 mx: 1,
                 ml: 2,
               }}

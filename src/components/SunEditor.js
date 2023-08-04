@@ -36,7 +36,13 @@ const MyComponent = () => {
   const [title, setTitle] = useState();
   const [textAreaData, setTextAreaData] = useState();
   const [promptTitle, setPromptTitle] = useState();
+  const [permission, setPermission] = useState({});
 
+  console.log("permission", permission);
+  useEffect(() => {
+    const permission = JSON.parse(localStorage.getItem("user_permission"));
+    setPermission(permission);
+  }, []);
   const handleChange = (content) => {
     // Handle the editor content here
     console.log("content", content);
@@ -289,6 +295,11 @@ const MyComponent = () => {
             onClick={() => handlePublishBlog("Publish")}
             disabled={!textAreaData || !title}
             sx={{
+              visibility:
+                permission.user_role === "Reader" ||
+                permission.user_role === "Writer"
+                  ? "hidden"
+                  : "visible",
               backgroundColor: "#40c1b9",
               color: "white",
               width: "135px",
@@ -302,10 +313,16 @@ const MyComponent = () => {
           >
             {loading ? "Loading..." : "Publish"}
           </Button>
+
           <Typography
             sx={{
               mx: 1,
               ml: 2,
+              visibility:
+                permission.user_role === "Reader" ||
+                permission.user_role === "Writer"
+                  ? "hidden"
+                  : "visible",
             }}
           >
             OR
@@ -318,6 +335,7 @@ const MyComponent = () => {
               color: "white",
               width: "155px",
               height: "42px",
+
               "&:hover": {
                 boxShadow: 4,
                 backgroundColor: "#40c1b9",
