@@ -35,7 +35,7 @@ import EditUserDialog from "../components/EditUserDialog";
 import ToasterContext from "@/utils/context/tosterContext";
 
 export default function User() {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState([] || "");
   const [page, setPage] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState();
@@ -252,6 +252,14 @@ export default function User() {
                           sx={userHeading}
                           variant="userTableHeadingBold"
                         >
+                          User Role
+                        </Typography>
+                      </TableCell>
+                      <TableCell sx={{ backgroundColor: "#2C5282" }}>
+                        <Typography
+                          sx={userHeading}
+                          variant="userTableHeadingBold"
+                        >
                           Phone
                         </Typography>
                       </TableCell>
@@ -354,6 +362,7 @@ export default function User() {
                         <TableCell>
                           {row.is_verified.toString() === "true" ? "Yes" : "No"}
                         </TableCell>
+                        <TableCell>{row.user_role}</TableCell>
 
                         <TableCell>
                           {row.phone === null ? "N/A" : row.phone}
