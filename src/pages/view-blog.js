@@ -36,7 +36,7 @@ const PreviewBlog = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={{ height: "90vh" }}>
-        <Container maxWidth="md" sx={{ mt: "110px" }}>
+        <Container maxWidth="xl" sx={{ mt: "110px" }}>
           <Box sx={{ mb: 3 }}>
             <Button
               onClick={() => handleBackButton()}

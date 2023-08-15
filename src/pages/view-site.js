@@ -33,7 +33,7 @@ import { Search } from "@mui/icons-material";
 
 const viewSite = () => {
   const router = useRouter();
-  const [blogData, setBlogData] = useState();
+  const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -56,8 +56,8 @@ const viewSite = () => {
           },
         }
       );
-      let revedData = response.data.reverse();
-      setBlogData(revedData);
+
+      setBlogData(response.data);
       setLoading(false);
       console.log("publishing blog response", response.data);
     } catch (error) {
@@ -306,157 +306,146 @@ const viewSite = () => {
                   </>
                 ) : (
                   blogData &&
-                  blogData
-                    .filter((u) => {
-                      const searchValue = searchResult?.toLowerCase() || "";
-                      const titleMatch = u?.data.title
-                        .toLowerCase()
-                        .includes(searchValue);
-
-                      return titleMatch;
-                    })
-                    .map((blog) => (
-                      <>
-                        <TableRow>
-                          <TableCell sx={{ border: "none" }}></TableCell>
-                        </TableRow>
-                        <TableRow
+                  blogData.map((blog) => (
+                    <>
+                      <TableRow>
+                        <TableCell sx={{ border: "none" }}></TableCell>
+                      </TableRow>
+                      <TableRow
+                        sx={{
+                          backgroundColor: "#F7FAFC",
+                        }}
+                      >
+                        <TableCell
                           sx={{
-                            backgroundColor: "#F7FAFC",
+                            my: 2,
+                            height: 100,
+                            border: "none",
+                            cursor: "pointer",
                           }}
+                          onClick={() => handleRowClick(blog)}
                         >
-                          <TableCell
+                          <Typography className={styles.card_heading_typo}>
+                            {blog.data.title}
+                          </Typography>
+                          <Typography className={styles.card_sub_heading_typo}>
+                            {formatDateToDisplay(blog.createdAt)}
+                          </Typography>
+                        </TableCell>
+                        <TableCell sx={{ my: 2, border: "none" }}>
+                          <Button
+                            disableRipple
+                            variant="outlined"
+                            onClick={(e) => handleMenuClick(e, blog.id)}
                             sx={{
-                              my: 2,
-                              height: 100,
-                              border: "none",
-                              cursor: "pointer",
+                              borderRadius: "10px",
+                              width: 100,
+                              textTransform: "capitalize",
+                              visibility:
+                                permission.user_role === "Reader" ||
+                                permission.user_role === "Writer"
+                                  ? "hidden"
+                                  : "visible",
                             }}
-                            onClick={() => handleRowClick(blog)}
                           >
-                            <Typography className={styles.card_heading_typo}>
-                              {blog.data.title}
+                            <Typography>{blog?.status}</Typography>
+                          </Button>
+                        </TableCell>
+                        <TableCell sx={{ my: 2, border: "none" }}>
+                          {/* stats wrapper */}
+                          <Box className={styles.stats_wrapper}>
+                            <Typography className={styles.stats}>
+                              120
                             </Typography>
-                            <Typography
-                              className={styles.card_sub_heading_typo}
-                            >
-                              {formatDateToDisplay(blog.createdAt)}
+                            <Typography className={styles.stats_views}>
+                              views
                             </Typography>
-                          </TableCell>
-                          <TableCell sx={{ my: 2, border: "none" }}>
-                            <Button
-                              disableRipple
-                              variant="outlined"
-                              onClick={(e) => handleMenuClick(e, blog.id)}
+                            <SvgIcon>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                              >
+                                <path
+                                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                                  stroke="#9AE6B4"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M16 12L12 8L8 12"
+                                  stroke="#9AE6B4"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M12 16V8"
+                                  stroke="#9AE6B4"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </SvgIcon>
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              visibility:
+                                permission.user_role === "Reader"
+                                  ? "hidden"
+                                  : "visible",
+                            }}
+                          >
+                            <IconButton
+                              onClick={() => handleEditBlog(blog)}
                               sx={{
-                                borderRadius: "10px",
-                                width: 100,
-                                textTransform: "capitalize",
-                                visibility:
-                                  permission.user_role === "Reader" ||
-                                  permission.user_role === "Writer"
-                                    ? "hidden"
-                                    : "visible",
+                                backgroundColor: "primary.main",
+                                "&.hover": {
+                                  backgroundColor: "primary.main",
+                                  boxShadow: 2,
+                                },
                               }}
                             >
-                              <Typography>{blog?.status}</Typography>
-                            </Button>
-                          </TableCell>
-                          <TableCell sx={{ my: 2, border: "none" }}>
-                            {/* stats wrapper */}
-                            <Box className={styles.stats_wrapper}>
-                              <Typography className={styles.stats}>
-                                120
-                              </Typography>
-                              <Typography className={styles.stats_views}>
-                                views
-                              </Typography>
-                              <SvgIcon>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                >
-                                  <path
-                                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                    stroke="#9AE6B4"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                  <path
-                                    d="M16 12L12 8L8 12"
-                                    stroke="#9AE6B4"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                  <path
-                                    d="M12 16V8"
-                                    stroke="#9AE6B4"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                </svg>
-                              </SvgIcon>
-                            </Box>
-                          </TableCell>
-                          <TableCell>
-                            <Box
+                              <ModeEditOutlineOutlinedIcon
+                                fontSize="small"
+                                sx={{ color: "white" }}
+                              />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => handleDeletBlog(blog)}
                               sx={{
-                                display: "flex",
+                                backgroundColor: "#8B0000",
+                                ml: 2,
                                 visibility:
+                                  permission.user_role === "Writer" ||
                                   permission.user_role === "Reader"
                                     ? "hidden"
                                     : "visible",
+                                "&.hover": {
+                                  backgroundColor: "#8B0000",
+                                  boxShadow: 2,
+                                },
                               }}
                             >
-                              <IconButton
-                                onClick={() => handleEditBlog(blog)}
+                              <DeleteOutlineOutlinedIcon
+                                fontSize="small"
                                 sx={{
-                                  backgroundColor: "primary.main",
-                                  "&.hover": {
-                                    backgroundColor: "primary.main",
-                                    boxShadow: 2,
-                                  },
+                                  color: "white",
                                 }}
-                              >
-                                <ModeEditOutlineOutlinedIcon
-                                  fontSize="small"
-                                  sx={{ color: "white" }}
-                                />
-                              </IconButton>
-                              <IconButton
-                                onClick={() => handleDeletBlog(blog)}
-                                sx={{
-                                  backgroundColor: "#8B0000",
-                                  ml: 2,
-                                  visibility:
-                                    permission.user_role === "Writer" ||
-                                    permission.user_role === "Reader"
-                                      ? "hidden"
-                                      : "visible",
-                                  "&.hover": {
-                                    backgroundColor: "#8B0000",
-                                    boxShadow: 2,
-                                  },
-                                }}
-                              >
-                                <DeleteOutlineOutlinedIcon
-                                  fontSize="small"
-                                  sx={{
-                                    color: "white",
-                                  }}
-                                />
-                              </IconButton>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      </>
-                    ))
+                              />
+                            </IconButton>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ))
                 )}
               </TableBody>
             </Table>

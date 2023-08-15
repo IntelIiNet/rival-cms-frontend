@@ -34,13 +34,13 @@ const userRoles = [
 ];
 
 function AddUser({ open, user, handleCloseEditDialog, handleApiRes }) {
-  console.log("edit uuser ", user);
   React.useEffect(() => {
     setUserDetails(user);
   }, [user]);
   const [userDetails, setUserDetails] = React.useState({});
   const fireToasterContext = React.useContext(toasterContext);
 
+  console.log("userDetails", userDetails);
   const handleChange = (event) => {
     setUserDetails({
       ...userDetails,
@@ -140,7 +140,7 @@ function AddUser({ open, user, handleCloseEditDialog, handleApiRes }) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     id="outlined-basic"
                     label="Phone Number"
@@ -151,6 +151,27 @@ function AddUser({ open, user, handleCloseEditDialog, handleApiRes }) {
                     value={userDetails.phone}
                     onChange={handleChange}
                   />
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Select User Role
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Select User Role"
+                      name="user_role"
+                      onChange={handleChange}
+                      value={userDetails.user_role || ""}
+                    >
+                      {userRoles.map((option) => (
+                        <MenuItem key={option.id} value={option.role}>
+                          {option.role}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
             </Box>
