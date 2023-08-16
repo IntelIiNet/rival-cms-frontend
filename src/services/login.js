@@ -9,12 +9,10 @@ const userLogin = async ({ userDetails, loginUserResponse }) => {
       }
     );
 
-    console.log("response of login", response);
     if (loginUserResponse) {
       loginUserResponse(response);
     }
     loginUserResponse(response);
-    console.log("response of login", response);
   } catch (error) {
     if (loginUserResponse) {
       loginUserResponse(error.response.data);
