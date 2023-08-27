@@ -196,6 +196,7 @@ const viewSite = () => {
       </Head>
       <main>
         <Container sx={{ mt: "108px" }}>
+
           <Box sx={{ mb: 2 }}>
             <InputBase
               onChange={(event) => handleSearch(event)}

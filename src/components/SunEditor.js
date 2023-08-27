@@ -98,6 +98,11 @@ const MyComponent = () => {
       status: status,
     };
 
+    console.log(
+      "newTextAreaData before the api call",
+      finalData.data.newTextAreaData
+    );
+
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/blog`,
       finalData,
@@ -107,6 +112,8 @@ const MyComponent = () => {
         },
       }
     );
+
+    console.log("response after api call", response);
     setLoading(false);
     fireToasterContext.fireToasterHandler(
       true,
